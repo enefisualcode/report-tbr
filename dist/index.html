@@ -1,11 +1,131 @@
-<!doctype html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#103b36"><title>TBR Performance</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="responsive-fixes.css"></head><body>
-<aside class="sidebar"><a class="brand" href="#dashboard"><span class="logo">⌁</span><span><b>TBR Performance</b><small>ACTIVITY TRACKER</small></span></a><div class="area"><small>AREA KERJA</small><span>⌖ &nbsp; JAKARTA SAHARJO</span></div><nav class="side-nav"></nav><div class="side-bottom"><div class="demo-box">♧ &nbsp; <b>Data simulasi</b><small>Contoh data, tidak terhubung<br>ke database.</small></div><div class="workspace"><span>TBR Workspace</span><span>2026</span></div></div></aside>
-<div class="app"><header class="desktop-head"><div>Workspace　›　<b id="crumb">Dashboard Saya</b></div><div class="head-actions"><div class="role-switch"><button data-role="staff">Staff</button><button data-role="supervisor">Supervisor</button></div><i></i><span class="avatar">NF</span><span>⌄</span></div></header><header class="mobile-head"><a class="brand" href="#dashboard"><span class="logo">⌁</span><span><b>TBR Performance</b><small>ACTIVITY TRACKER</small></span></a><span class="avatar">NF</span></header><div class="mobile-context"><span>⌖ &nbsp; AREA JAKARTA SAHARJO</span><div class="role-switch"><button data-role="staff">Staff</button><button data-role="supervisor">Supervisor</button></div></div>
-<main><div class="page-head"><div><h1 id="pageTitle">Dashboard Saya</h1><p id="pageSubtitle"></p></div><div class="date-chip">▦ &nbsp; <span id="dateLabel">Oktober 2026</span></div><span class="demo-pill">Data simulasi</span></div>
-<section id="dashboard" class="page active"><div class="desktop dashboard-metrics"><article class="total-card"><span>Total closing saya</span><b>32 <small>Closing</small></b><footer>Oktober 2026 <em>♙ &nbsp; Peringkat #2</em></footer></article><article class="product-stat"><i>⌗</i><span>Closing</span><b>12</b><strong>QRIS</strong><small>Registrasi & aktivasi</small></article><article class="product-stat gold"><i>♢</i><span>Closing</span><b>11</b><strong>Tabungan Emas</strong><small>Pembukaan rekening</small></article><article class="product-stat"><i>⌂</i><span>Closing</span><b>9</b><strong>BSI Agen</strong><small>Akuisisi agen</small></article></div><article class="mobile total-card"><span>Total closing saya</span><i>⌁</i><b>32 <small>Closing</small></b><footer>Oktober 2026 <em>♙ &nbsp; Peringkat #2</em></footer></article><article class="mobile card product-summary"><h2>Closing per Produk</h2><div class="product-line"><i>⌗</i><span><b>QRIS</b><small>Registrasi & aktivasi</small></span><strong>12</strong></div><div class="product-line gold"><i>♢</i><span><b>Tabungan Emas</b><small>Pembukaan rekening</small></span><strong>11</strong></div><div class="product-line"><i>⌂</i><span><b>BSI Agen</b><small>Akuisisi agen</small></span><strong>9</strong></div></article><div class="dashboard-grid"><article class="card activity-card"><div class="card-title"><div><h2>Aktivitas Terbaru</h2><p>Closing terakhir yang Anda catat</p></div><button data-route="history">Lihat riwayat ↗</button></div><div id="activityList"></div><div class="info">ⓘ &nbsp; Menampilkan sebagian catatan terbaru, bukan seluruh closing bulanan.</div></article><div class="dash-side"><article class="card quick-card"><h2>Akses Cepat</h2><button data-route="closing">⊕ &nbsp; Input Closing <span>→</span></button><button data-route="visits">▧ &nbsp; Dokumentasi Kunjungan <span>→</span></button></article><article class="card top-card"><div class="card-title"><h2>Top 3 Staff</h2><button data-route="ranking">Ranking ↗</button></div><div id="topThree"></div><small>Total closing · Oktober 2026</small></article></div></div></section>
-<section id="supervisor" class="page"><div class="super-metrics"><article class="total-card"><span>Performa Seluruh Tim</span><b>286 <small>Closing</small></b><footer>Ringkasan semua staff · Oktober 2026</footer></article><article class="metric"><span>Staff Aktif</span><b>17</b><small>Staff</small></article><article class="metric"><span>Kunjungan Tim</span><b>94</b><small>Dokumentasi</small></article><article class="metric"><span>Staff Melapor</span><b>15</b><small>dari 17 staff</small></article><article class="metric"><span>Rata-rata Closing</span><b>16.8</b><small>per staff</small></article></div><div class="super-grid"><article class="card chart-card"><div class="card-title"><div><h2>Closing per Produk</h2><p>Ilustrasi distribusi</p></div><span class="demo-pill">Ilustratif</span></div><div class="bars"><i style="height:92%"></i><i style="height:78%"></i><i style="height:58%"></i><i style="height:40%"></i><i style="height:68%"></i></div><div class="bar-labels"><span>QRIS</span><span>Emas</span><span>Agen</span><span>EDC</span><span>Lainnya</span></div><small>Tinggi batang hanya ilustrasi, bukan jumlah closing dan tidak dijumlahkan ke total tim.</small></article><article class="card staff-ranking"><div class="card-title"><h2>Ranking Staff</h2><button data-route="ranking">Lihat ranking ↗</button></div><div id="superRanking"></div><small>Total closing · Oktober 2026</small></article></div><article class="card monitoring"><div class="card-title"><div><h2>Monitoring Staff</h2><p>Rincian closing pada enam staff yang ditampilkan.</p></div><span class="demo-pill">6 dari 17 staff</span></div><div id="monitoringTable"></div></article></section>
-<section id="closing" class="page"><div class="closing-layout"><article class="card product-picker"><h2><i>1</i> Pilih produk</h2><p>Pilih produk untuk menampilkan form closing yang sesuai.</p><div id="productPicker"></div></article><div class="desktop save-note">▣ &nbsp; Pastikan tanggal, jumlah, dan aktivitas<br>&nbsp;&nbsp;&nbsp;&nbsp; sudah sesuai sebelum menyimpan.</div><form id="closingForm" class="card closing-form"><div class="card-title"><div><h2><i>2</i> Form <span id="selectedProductName">QRIS</span></h2><p>Lengkapi detail closing Anda.</p></div><span class="demo-pill">Input Manual</span></div><hr><div class="form-grid"><label>Tanggal Closing<input value="25/10/2026" required></label><label>Jumlah Closing<input type="number" min="1" value="1" required></label><label class="wide">Nama merchant<input placeholder="Contoh: Toko Berkah" required></label><fieldset class="wide"><legend>Jenis aktivitas</legend><label class="radio active"><input type="radio" name="activity" checked> Registrasi Baru</label><label class="radio"><input type="radio" name="activity"> Aktivasi</label></fieldset><label class="wide">Keterangan tambahan (opsional)<textarea placeholder="Tambahkan catatan aktivitas..."></textarea></label></div><div class="info">♢ &nbsp; Isi informasi pekerjaan yang diizinkan saja. Jangan masukkan nomor rekening atau informasi rahasia nasabah pada prototipe ini.</div><div class="form-actions"><small>Periksa kembali sebelum menyimpan.</small><button type="reset">Bersihkan</button><button class="primary" type="submit">✓ &nbsp; Simpan Closing</button></div><p class="success" hidden>Closing berhasil disimpan ke data simulasi.</p></form></div></section>
-<section id="ranking" class="page"><div class="ranking-intro"><span class="trophy">♧</span><div><h2>Leaderboard TBR</h2><p>Jakarta Saharjo · Seluruh produk</p></div><div class="segments"><button>Harian</button><button>Mingguan</button><button class="active">Bulanan</button></div></div><div class="ranking-layout"><article class="card ranking-list"><div class="card-title"><div><h2>Ranking Bulanan <span class="desktop">· Oktober 2026</span></h2><p>6 staff ditampilkan</p></div></div><div class="ranking-head">PERINGKAT / STAFF <span>TOTAL CLOSING</span></div><div id="fullRanking"></div><footer>▧ &nbsp; Akumulasi closing seluruh produk pada periode terpilih.</footer></article><aside><article class="rank-position"><span>Posisi Anda</span><b>#2 <small>Ranking bulanan</small></b><footer>Total closing saya <strong>32</strong></footer></article><article class="card about-ranking"><h3>ⓘ &nbsp; Tentang ranking</h3><p>Contoh ranking tidak berubah antarperiode karena menggunakan data simulasi, bukan transaksi bertanggal.</p><footer><span class="demo-pill">Data simulasi</span><small>Oktober 2026</small></footer></article></aside></div></section>
-<section id="visits" class="page"><div class="visit-layout"><form id="visitForm" class="card visit-form"><div class="card-title"><div><h2>Tambah Dokumentasi</h2><p>Lengkapi informasi kunjungan Anda.</p></div></div><hr><div class="form-grid"><label>Tanggal Kunjungan<input value="25/10/2026"></label><label>Nama Merchant / Lokasi Umum<input placeholder="Contoh: Toko Makmur"></label><fieldset class="wide categories"><legend>Kategori</legend><label class="active">✓ &nbsp; Kunjungan Merchant</label><label>Aktivasi QRIS</label><label>Aktivasi EDC</label><label>Prospecting</label><label>Follow Up</label></fieldset><label class="wide">Keterangan<textarea placeholder="Tuliskan tujuan dan hasil kunjungan..."></textarea></label><div class="wide"><b>Foto Dokumentasi</b><label class="upload">▧ <span><strong>Pilih foto dokumentasi</strong><small>Area pratinjau foto · Belum ada file dipilih</small></span><button type="button">＋ &nbsp; Pilih Foto</button><input type="file"></label></div></div><div class="info">ⓘ &nbsp; Foto tidak diunggah atau disimpan dalam demo ini. Gunakan informasi pekerjaan yang diizinkan saja.</div><div class="form-actions"><span class="demo-pill">Data simulasi</span><button class="primary">✓ &nbsp; Simpan Dokumentasi</button></div><p class="success" hidden>Dokumentasi tersimpan pada simulasi.</p></form><aside class="visit-recent"><div><h2>Dokumentasi Terbaru</h2><p>Catatan kunjungan terakhir</p></div><div id="visitCards"></div><small>♢ &nbsp; Placeholder visual, bukan foto kunjungan nyata.</small></aside></div></section>
-<section id="history" class="page"><div class="history-metrics"><article class="metric"><i>⌁</i><span>Total closing bulanan</span><b>32</b><small>Closing · Oktober 2026</small></article><article class="metric"><i>☷</i><span>Catatan ditampilkan</span><b>3</b><small>Catatan terbaru</small></article><article class="metric"><i>▧</i><span>Closing pada daftar ini</span><b>4</b><small>Bukan total bulanan</small></article></div><article class="card history-card"><div class="card-title"><div><h2>Riwayat Closing</h2><p>Catatan aktivitas pribadi Anda</p></div></div><div class="filters"><input id="historySearch" placeholder="⌕  Cari produk atau merchant..."><button>♙ &nbsp; Saya</button><button>☰ &nbsp; Semua produk</button></div><div id="historyContent"></div><footer>Menampilkan 1–3 dari 3 catatan contoh <span>‹　<b>1</b>　›</span></footer></article><div class="history-notes"><div class="info">ⓘ &nbsp; Daftar ini adalah sebagian catatan terbaru. Jumlah closing pada daftar tidak mewakili total 32 closing di bulan Oktober 2026.</div><div><b>♢ &nbsp; Catatan kerja, bukan data nasabah</b><small>Hindari nomor rekening dan informasi rahasia pada prototipe ini.</small></div></div></section></main>
-<footer class="site-footer"><span>TBR Performance · Jakarta Saharjo</span><span>25 Oktober 2026 · Data simulasi</span><small>Contoh data, tidak terhubung ke database.</small></footer></div><nav class="mobile-nav"></nav><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <title>TBR Performance</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard" aria-label="TBR Performance">
+        <span class="brand-mark">T</span>
+        <span>TBR Performance<small>Activity tracker</small></span>
+      </a>
+      <nav id="desktopNav" class="nav" aria-label="Navigasi utama"></nav>
+      <div class="sidebar-footer">
+        <label for="roleDesktop">Mode tampilan</label>
+        <select id="roleDesktop">
+          <option value="staff">TBR Staff</option>
+          <option value="supervisor">TBR Supervisor</option>
+        </select>
+        <small>UI demo · data simulasi</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Area Jakarta Saharjo</p>
+          <h1 id="pageTitle">Dashboard Saya</h1>
+          <p id="pageSubtitle">Pantau aktivitas dan pencapaian hari ini.</p>
+        </div>
+        <div class="profile">
+          <span id="avatar" class="avatar">NF</span>
+          <div><strong id="profileName">Nadia F.</strong><small id="profileRole">TBR Staff</small></div>
+          <select id="roleMobile" aria-label="Ubah mode tampilan">
+            <option value="staff">Staff</option>
+            <option value="supervisor">Supervisor</option>
+          </select>
+        </div>
+      </header>
+
+      <section id="dashboard" class="page active">
+        <div class="hero hero-clickable" data-open="closingDetail" role="button" tabindex="0" aria-label="Lihat rincian closing bulanan">
+          <div>
+            <span class="hero-label">Total closing bulan ini</span>
+            <h2><span id="heroTotal">32</span> <small>closing</small></h2>
+            <p>Oktober 2026 · performa pribadi</p>
+          </div>
+          <div class="rank-card"><span>Ranking area</span><strong id="heroRank">#2</strong><small>dari 17 staff</small></div>
+        </div>
+        <div class="section-heading"><div><h2>Akses cepat</h2></div></div>
+        <div class="quick-actions">
+          <button data-route="closing"><span>＋</span><div><strong>Input closing</strong><small>Catat pencapaian baru</small></div><b>→</b></button>
+          <button data-route="visits"><span>▣</span><div><strong>Tambahkan foto kunjungan</strong><small>Dokumentasikan aktivitas lapangan</small></div><b>→</b></button>
+        </div>
+        <article class="card performance-card section-gap">
+          <div class="card-head"><div><p class="eyebrow">Learning overview</p><h2>Performa kinerja staf</h2></div><select id="staffChartSelect" class="chart-select" aria-label="Pilih staf"></select></div>
+          <div class="chart-legend"><span><i></i>Closing</span><small>Target bulanan 40</small></div>
+          <div id="staffChart" class="staff-chart" aria-label="Grafik performa kinerja staf"></div>
+        </article>
+        <div class="content-grid section-gap">
+          <article class="card">
+            <div class="card-head"><h2>Aktivitas Terbaru</h2><button class="text-button" data-route="history">Lihat riwayat →</button></div>
+            <div id="recentList"></div>
+          </article>
+          <article class="card">
+            <div class="card-head"><h2>Top 3 Staff</h2><button class="text-button" data-route="ranking">Ranking →</button></div>
+            <div id="topList"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="closing" class="page">
+        <div class="section-heading"><div><p class="eyebrow">Langkah 1 dari 2</p><h2>Pilih produk</h2></div></div>
+        <label class="product-select-label">Produk closing<select id="productSelect" class="product-select"></select></label>
+        <form id="closingForm" class="card form-card">
+          <div class="card-head"><div><p class="eyebrow">Langkah 2 dari 2</p><h2 id="formTitle">Detail QRIS</h2></div><span class="pill">Input manual</span></div>
+          <div id="closingFields" class="form-grid"></div>
+          <div class="form-actions"><button type="reset" class="button secondary">Reset</button><button class="button primary" type="submit">Simpan closing</button></div>
+          <p id="closingMessage" class="message" hidden></p>
+        </form>
+      </section>
+
+      <section id="ranking" class="page">
+        <div class="section-heading split"><div><p class="eyebrow">Performa tim</p><h2>Leaderboard TBR</h2></div><div class="segments"><button>Harian</button><button>Mingguan</button><button class="active">Bulanan</button></div></div>
+        <article class="card leaderboard-card"><div id="leaderboard"></div></article>
+      </section>
+
+      <section id="visits" class="page">
+        <div class="content-grid">
+          <form id="visitForm" class="card form-card">
+            <div class="card-head"><div><p class="eyebrow">Aktivitas lapangan</p><h2>Tambah dokumentasi</h2></div></div>
+            <label>Tanggal<input id="visitDate" type="date" required></label>
+            <label>Keterangan<textarea id="visitNotes" placeholder="Hasil kunjungan secara singkat"></textarea></label>
+            <label>Foto dokumentasi<input type="file" accept="image/*"></label>
+            <button class="button primary full" type="submit">Simpan dokumentasi</button>
+            <p id="visitMessage" class="message" hidden></p>
+          </form>
+          <article class="card"><div class="card-head"><div><p class="eyebrow">Galeri</p><h2>Kunjungan terbaru</h2></div></div><div id="visitGallery" class="visit-gallery"></div></article>
+        </div>
+      </section>
+
+      <section id="history" class="page">
+        <article class="card">
+          <div class="card-head history-head"><div><p class="eyebrow">Data laporan</p><h2>Riwayat closing</h2></div><input id="historySearch" class="search" placeholder="Cari produk atau merchant…"></div>
+          <div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Produk</th><th>Aktivitas</th><th>Jumlah</th><th>Status</th></tr></thead><tbody id="historyTable"></tbody></table></div>
+        </article>
+      </section>
+
+      <section id="supervisor" class="page">
+        <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2>286 <small>closing</small></h2><p>Oktober 2026 · 17 staff aktif</p></div><div class="rank-card"><span>Target tercapai</span><strong>84%</strong><small>bulan berjalan</small></div></div>
+        <div class="metrics"><article class="card metric simple"><div><p>Kunjungan tim</p><strong>94</strong><small>dokumentasi</small></div></article><article class="card metric simple"><div><p>Staff melapor</p><strong>15/17</strong><small>hari ini</small></div></article><article class="card metric simple"><div><p>Rata-rata closing</p><strong>16.8</strong><small>per staff</small></div></article></div>
+        <div class="content-grid section-gap"><article class="card"><div class="card-head"><div><p class="eyebrow">Distribusi</p><h2>Closing per produk</h2></div></div><div id="barChart" class="bar-chart"></div></article><article class="card"><div class="card-head"><div><p class="eyebrow">Monitoring</p><h2>Top staff</h2></div></div><div id="supervisorTop"></div></article></div>
+      </section>
+    </main>
+  </div>
+  <div id="closingDetail" class="modal" hidden>
+    <div class="modal-backdrop" data-close="closingDetail"></div>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="modal-close" data-close="closingDetail" aria-label="Tutup">×</button>
+      <p class="eyebrow">Oktober 2026</p><h2 id="detailTitle">Pembukaan baru per produk</h2><p class="modal-subtitle">Total unit produk khusus pembukaan baru</p>
+      <div id="closingBars" class="closing-bars"></div>
+    </section>
+  </div>
+  <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
+  <script src="app.js"></script>
+</body>
+</html>

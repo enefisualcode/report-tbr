@@ -1,7 +1,0 @@
-@media(max-width:800px){
-  .dashboard-grid{display:flex;flex-direction:column}
-  .dashboard-grid>.activity-card{order:2}
-  .dashboard-grid>.dash-side{display:contents}
-  .dashboard-grid .quick-card{order:1}
-  .dashboard-grid .top-card{order:3}
-}

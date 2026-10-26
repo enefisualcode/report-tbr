@@ -8,7 +8,35 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-shell">
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <span class="brand-mark">T</span>
+      <p class="eyebrow">TBR Performance</p>
+      <h1>Akun TBR</h1>
+      <div class="auth-tabs" role="tablist">
+        <button id="signInTab" class="active" type="button" role="tab" aria-selected="true">Sign In</button>
+        <button id="signUpTab" type="button" role="tab" aria-selected="false">Sign Up</button>
+      </div>
+      <form id="loginForm">
+        <p>Masuk menggunakan NIP dan password Anda.</p>
+        <label>NIP<input id="loginNip" type="text" pattern="[A-Za-z0-9._-]{3,30}" autocomplete="username" placeholder="Contoh: TAD25011113911" required></label>
+        <label>Password<input id="loginPassword" type="password" autocomplete="current-password" minlength="6" required></label>
+        <button class="button primary full" type="submit">Masuk</button>
+        <p id="loginMessage" class="message" hidden></p>
+      </form>
+      <form id="signupForm" hidden>
+        <p>Daftarkan akun baru menggunakan NIP.</p>
+        <label>Nama lengkap<input id="signupFullName" type="text" autocomplete="name" placeholder="Contoh: Budi Santoso" required></label>
+        <label>NIP<input id="signupNip" type="text" pattern="[A-Za-z0-9._-]{3,30}" autocomplete="username" placeholder="Contoh: TAD25011113911" required></label>
+        <label>Password<input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required></label>
+        <label>Jabatan<select id="signupRole" required><option value="staff">TBR Staff</option><option value="supervisor">TBR Supervisor</option></select></label>
+        <button class="button primary full" type="submit">Daftar</button>
+        <p id="signupMessage" class="message" hidden></p>
+      </form>
+      <small id="setupHint" hidden>Supabase belum dikonfigurasi. Isi <code>config.js</code> terlebih dahulu.</small>
+    </div>
+  </section>
+  <div class="app-shell" hidden>
     <aside class="sidebar">
       <a class="brand" href="#dashboard" aria-label="TBR Performance">
         <span class="brand-mark">T</span>
@@ -21,7 +49,7 @@
           <option value="staff">TBR Staff</option>
           <option value="supervisor">TBR Supervisor</option>
         </select>
-        <small>UI demo · data simulasi</small>
+        <small>Data tersimpan di perangkat ini</small>
       </div>
     </aside>
 
@@ -39,6 +67,7 @@
             <option value="staff">Staff</option>
             <option value="supervisor">Supervisor</option>
           </select>
+          <button id="logoutButton" class="logout-button" type="button">Keluar</button>
         </div>
       </header>
 
@@ -47,7 +76,7 @@
           <div>
             <span class="hero-label">Total closing bulan ini</span>
             <h2><span id="heroTotal">32</span> <small>closing</small></h2>
-            <p>Oktober 2026 · performa pribadi</p>
+            <p><span data-current-month></span> · performa pribadi</p>
           </div>
           <div class="rank-card"><span>Ranking area</span><strong id="heroRank">#2</strong><small>dari 17 staff</small></div>
         </div>
@@ -95,7 +124,7 @@
             <div class="card-head"><div><p class="eyebrow">Aktivitas lapangan</p><h2>Tambah dokumentasi</h2></div></div>
             <label>Tanggal<input id="visitDate" type="date" required></label>
             <label>Keterangan<textarea id="visitNotes" placeholder="Hasil kunjungan secara singkat"></textarea></label>
-            <label>Foto dokumentasi<input type="file" accept="image/*"></label>
+            <label>Foto dokumentasi<input id="visitPhoto" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"><small class="field-hint">JPG, PNG, atau WebP. Foto besar akan dikompres otomatis.</small></label>
             <button class="button primary full" type="submit">Simpan dokumentasi</button>
             <p id="visitMessage" class="message" hidden></p>
           </form>
@@ -111,8 +140,8 @@
       </section>
 
       <section id="supervisor" class="page">
-        <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2>286 <small>closing</small></h2><p>Oktober 2026 · 17 staff aktif</p></div><div class="rank-card"><span>Target tercapai</span><strong>84%</strong><small>bulan berjalan</small></div></div>
-        <div class="metrics"><article class="card metric simple"><div><p>Kunjungan tim</p><strong>94</strong><small>dokumentasi</small></div></article><article class="card metric simple"><div><p>Staff melapor</p><strong>15/17</strong><small>hari ini</small></div></article><article class="card metric simple"><div><p>Rata-rata closing</p><strong>16.8</strong><small>per staff</small></div></article></div>
+        <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div><div class="rank-card"><span>Target tercapai</span><strong id="teamTarget">0%</strong><small>bulan berjalan</small></div></div>
+        <div class="metrics"><article class="card metric simple"><div><p>Kunjungan tim</p><strong id="teamVisits">0</strong><small>dokumentasi</small></div></article><article class="card metric simple"><div><p>Staff melapor</p><strong id="reportingStaff">0</strong><small>bulan ini</small></div></article><article class="card metric simple"><div><p>Rata-rata closing</p><strong id="teamAverage">0</strong><small>per staff</small></div></article></div>
         <div class="content-grid section-gap"><article class="card"><div class="card-head"><div><p class="eyebrow">Distribusi</p><h2>Closing per produk</h2></div></div><div id="barChart" class="bar-chart"></div></article><article class="card"><div class="card-head"><div><p class="eyebrow">Monitoring</p><h2>Top staff</h2></div></div><div id="supervisorTop"></div></article></div>
       </section>
     </main>
@@ -121,11 +150,13 @@
     <div class="modal-backdrop" data-close="closingDetail"></div>
     <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
       <button class="modal-close" data-close="closingDetail" aria-label="Tutup">×</button>
-      <p class="eyebrow">Oktober 2026</p><h2 id="detailTitle">Pembukaan baru per produk</h2><p class="modal-subtitle">Total unit produk khusus pembukaan baru</p>
+      <p class="eyebrow" data-current-month></p><h2 id="detailTitle">Pembukaan baru per produk</h2><p class="modal-subtitle">Total unit produk khusus pembukaan baru</p>
       <div id="closingBars" class="closing-bars"></div>
     </section>
   </div>
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
-  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js?v=20261026-2"></script>
+  <script src="app.js?v=20261026-2"></script>
 </body>
 </html>

@@ -6,44 +6,52 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="app-version" content="20261026-11">
+  <meta name="app-version" content="20261026-20">
   <meta name="theme-color" content="#0f766e">
   <title>TBR Performance</title>
-  <link rel="stylesheet" href="styles.css?v=20261026-11">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20261026-20">
 </head>
 <body>
   <section id="authScreen" class="auth-screen">
     <div class="auth-card">
-      <span class="brand-mark">T</span>
-      <p class="eyebrow">TBR Performance</p>
-      <h1>Akun TBR</h1>
-      <div class="auth-tabs" role="tablist">
-        <button id="signInTab" class="active" type="button" role="tab" aria-selected="true">Sign In</button>
-        <button id="signUpTab" type="button" role="tab" aria-selected="false">Sign Up</button>
+      <div class="auth-intro">
+        <span class="brand-mark brand-logo"><img src="assets/bsi-mark.png?v=20261026-12" alt="BSI"></span>
+        <p class="eyebrow">TBR Performance</p>
+        <h1>Akun TBR</h1>
+        <p>Catat closing, dokumentasi kunjungan, dan pantau performa dalam satu aplikasi.</p>
       </div>
-      <form id="loginForm">
-        <p>Masuk menggunakan NIP dan password Anda.</p>
-        <label>NIP<input id="loginNip" type="text" pattern="[A-Za-z0-9._-]{3,30}" autocomplete="username" placeholder="Contoh: TAD25011113911" required></label>
-        <label>Password<input id="loginPassword" type="password" autocomplete="current-password" minlength="6" required></label>
-        <button class="button primary full" type="submit">Masuk</button>
-        <p id="loginMessage" class="message" hidden></p>
-      </form>
-      <form id="signupForm" hidden>
-        <p>Daftarkan akun baru menggunakan NIP.</p>
-        <label>Nama lengkap<input id="signupFullName" type="text" autocomplete="name" placeholder="Contoh: Budi Santoso" required></label>
-        <label>NIP<input id="signupNip" type="text" pattern="[A-Za-z0-9._-]{3,30}" autocomplete="username" placeholder="Contoh: TAD25011113911" required></label>
-        <label>Password<input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required></label>
-        <label>Jabatan<select id="signupRole" required><option value="staff">TBR Staff</option><option value="supervisor">TBR Supervisor</option></select></label>
-        <button class="button primary full" type="submit">Daftar</button>
-        <p id="signupMessage" class="message" hidden></p>
-      </form>
-      <small id="setupHint" hidden>Supabase belum dikonfigurasi. Isi <code>config.js</code> terlebih dahulu.</small>
+      <div class="auth-form-panel">
+        <div class="auth-tabs" role="tablist">
+          <button id="signInTab" class="active" type="button" role="tab" aria-selected="true">Sign In</button>
+          <button id="signUpTab" type="button" role="tab" aria-selected="false">Sign Up</button>
+        </div>
+        <form id="loginForm" novalidate>
+          <p>Masuk menggunakan NIP dan password Anda.</p>
+          <label>NIP<input id="loginNip" type="text" autocomplete="username" placeholder="Contoh: TAD25011113911" maxlength="50" required></label>
+          <label>Password<span class="password-field"><input id="loginPassword" type="password" autocomplete="current-password" minlength="6" required><button type="button" data-password-toggle="loginPassword" aria-label="Tampilkan password">Lihat</button></span></label>
+          <button class="button primary full" type="submit">Masuk</button>
+          <p id="loginMessage" class="message" hidden></p>
+        </form>
+        <form id="signupForm" novalidate hidden>
+          <p>Daftarkan akun baru menggunakan NIP.</p>
+          <label>Nama lengkap<input id="signupFullName" type="text" autocomplete="name" placeholder="Contoh: Budi Santoso" minlength="2" required></label>
+          <label>NIP<input id="signupNip" type="text" autocomplete="username" inputmode="text" placeholder="Contoh: TAD25011113911" maxlength="50" required><small class="field-hint">Gunakan minimal 3 karakter tanpa spasi.</small></label>
+          <label>Password<span class="password-field"><input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required><button type="button" data-password-toggle="signupPassword" aria-label="Tampilkan password">Lihat</button></span></label>
+          <label>Jabatan<select id="signupRole" required><option value="staff">TBR Staff</option><option value="supervisor">TBR Supervisor</option></select></label>
+          <button class="button primary full" type="submit">Daftar</button>
+          <p id="signupMessage" class="message" hidden></p>
+        </form>
+        <small id="setupHint" hidden>Supabase belum dikonfigurasi. Isi <code>config.js</code> terlebih dahulu.</small>
+      </div>
     </div>
   </section>
   <div class="app-shell" hidden>
     <aside class="sidebar">
       <a class="brand" href="#dashboard" aria-label="TBR Performance">
-        <span class="brand-mark">T</span>
+        <span class="brand-mark brand-logo"><img src="assets/bsi-mark.png?v=20261026-12" alt="BSI"></span>
         <span>TBR Performance<small>Activity tracker</small></span>
       </a>
       <nav id="desktopNav" class="nav" aria-label="Navigasi utama"></nav>
@@ -84,7 +92,7 @@
         </div>
         <article class="card performance-card section-gap">
           <div class="card-head"><div><p class="eyebrow">Learning overview</p><h2>Performa kinerja staf</h2></div><select id="staffChartSelect" class="chart-select" aria-label="Pilih staf"></select></div>
-          <div class="chart-legend"><span><i></i>Closing</span><small>Target bulanan 40</small></div>
+          <div class="chart-legend"><span><i></i>Closing</span></div>
           <div id="staffChart" class="staff-chart" aria-label="Grafik performa kinerja staf"></div>
         </article>
         <div class="content-grid section-gap">
@@ -100,10 +108,10 @@
       </section>
 
       <section id="closing" class="page">
-        <div class="section-heading"><div><p class="eyebrow">Langkah 1 dari 2</p><h2>Pilih produk</h2></div></div>
-        <label class="product-select-label">Produk closing<select id="productSelect" class="product-select"></select></label>
+        <div class="section-heading closing-heading"><div><h2>Produk closing</h2><p>Pilih produk yang ingin dicatat.</p></div></div>
+        <label class="product-select-label"><span>Pilih produk</span><select id="productSelect" class="product-select"></select></label>
         <form id="closingForm" class="card form-card">
-          <div class="card-head"><div><p class="eyebrow">Langkah 2 dari 2</p><h2 id="formTitle">Detail QRIS</h2></div><span class="pill">Input manual</span></div>
+          <div class="card-head closing-card-head"><div><h2 id="formTitle">Detail QRIS</h2><p>Lengkapi informasi closing di bawah ini.</p></div><span class="pill">Input manual</span></div>
           <div id="closingFields" class="form-grid"></div>
           <div class="form-actions"><button type="reset" class="button secondary">Reset</button><button class="button primary" type="submit">Simpan closing</button></div>
           <p id="closingMessage" class="message" hidden></p>
@@ -130,6 +138,19 @@
       </section>
 
       <section id="history" class="page">
+        <article class="card history-profile-card">
+          <div class="history-profile-photo">
+            <img id="historyProfileImage" alt="Foto profil" hidden>
+            <span id="historyProfileFallback">ST</span>
+          </div>
+          <div class="history-profile-copy">
+            <p class="eyebrow">Profil staff</p>
+            <h2 id="historyProfileName">Nama Staff</h2>
+            <p><span id="historyProfileNip">NIP</span> · <span id="historyProfileRole">TBR Staff</span></p>
+          </div>
+          <label class="button secondary profile-upload-button">Ganti foto<input id="profilePhoto" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" hidden></label>
+          <p id="profilePhotoMessage" class="message profile-photo-message" hidden></p>
+        </article>
         <article class="card">
           <div class="card-head history-head"><div><p class="eyebrow">Data laporan</p><h2>Riwayat closing</h2></div><input id="historySearch" class="search" placeholder="Cari produk atau merchant…"></div>
           <div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Produk</th><th>Aktivitas</th><th>Jumlah</th><th>Status</th></tr></thead><tbody id="historyTable"></tbody></table></div>
@@ -154,7 +175,7 @@
   </div>
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js?v=20261026-11"></script>
-  <script src="app.js?v=20261026-11"></script>
+  <script src="config.js?v=20261026-20"></script>
+  <script src="app.js?v=20261026-20"></script>
 </body>
 </html>

@@ -47,6 +47,8 @@ npm run check
 - `visits`: kunjungan dan referensi foto.
 - bucket private `visit-photos`: foto diakses menggunakan URL sementara.
 - Migration `202610260006_visit_photo_storage.sql` memastikan bucket foto, batas 5 MB, dan policy upload/read/delete tersedia.
+- bucket private `profile-photos`: foto profil staff diakses menggunakan URL sementara.
+- Migration `202610260007_profile_photo.sql` menambahkan kolom foto profil, bucket, policy, dan fungsi pembaruan profil.
 - Row Level Security: staff hanya membaca/mengubah laporannya sendiri; supervisor dapat membaca laporan seluruh tim.
 - Ranking bulanan tersedia untuk seluruh pengguna melalui fungsi database yang hanya mengembalikan nama dan total.
 

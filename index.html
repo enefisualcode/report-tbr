@@ -44,11 +44,8 @@
       </a>
       <nav id="desktopNav" class="nav" aria-label="Navigasi utama"></nav>
       <div class="sidebar-footer">
-        <label for="roleDesktop">Mode tampilan</label>
-        <select id="roleDesktop">
-          <option value="staff">TBR Staff</option>
-          <option value="supervisor">TBR Supervisor</option>
-        </select>
+        <label>Jabatan</label>
+        <span id="roleDesktop" class="role-badge">TBR Staff</span>
         <small>Data tersimpan di perangkat ini</small>
       </div>
     </aside>
@@ -56,17 +53,13 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Area Jakarta Saharjo</p>
+          <p class="eyebrow">TBR AREA JAKARTA SAHARJO</p>
           <h1 id="pageTitle">Dashboard Saya</h1>
           <p id="pageSubtitle">Pantau aktivitas dan pencapaian hari ini.</p>
         </div>
         <div class="profile">
           <span id="avatar" class="avatar">NF</span>
           <div><strong id="profileName">Nadia F.</strong><small id="profileRole">TBR Staff</small></div>
-          <select id="roleMobile" aria-label="Ubah mode tampilan">
-            <option value="staff">Staff</option>
-            <option value="supervisor">Supervisor</option>
-          </select>
           <button id="logoutButton" class="logout-button" type="button">Keluar</button>
         </div>
       </header>
@@ -142,6 +135,7 @@
       <section id="supervisor" class="page">
         <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div><div class="rank-card"><span>Target tercapai</span><strong id="teamTarget">0%</strong><small>bulan berjalan</small></div></div>
         <div class="metrics"><article class="card metric simple"><div><p>Kunjungan tim</p><strong id="teamVisits">0</strong><small>dokumentasi</small></div></article><article class="card metric simple"><div><p>Staff melapor</p><strong id="reportingStaff">0</strong><small>bulan ini</small></div></article><article class="card metric simple"><div><p>Rata-rata closing</p><strong id="teamAverage">0</strong><small>per staff</small></div></article></div>
+        <article class="card performance-card section-gap"><div class="card-head"><div><p class="eyebrow">Monitoring individu</p><h2>Performa per staff</h2></div><select id="supervisorStaffSelect" class="chart-select" aria-label="Pilih staff"></select></div><div id="supervisorStaffChart" class="staff-chart" aria-label="Grafik performa staff terpilih"></div></article>
         <div class="content-grid section-gap"><article class="card"><div class="card-head"><div><p class="eyebrow">Distribusi</p><h2>Closing per produk</h2></div></div><div id="barChart" class="bar-chart"></div></article><article class="card"><div class="card-head"><div><p class="eyebrow">Monitoring</p><h2>Top staff</h2></div></div><div id="supervisorTop"></div></article></div>
       </section>
     </main>

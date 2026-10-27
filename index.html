@@ -173,8 +173,16 @@
       </section>
 
       <section id="admin" class="page">
-        <div class="section-heading"><div><p class="eyebrow">Manajemen akses</p><h2>Daftar user terdaftar</h2><p>Approve permintaan akses TBR Supervisor dari halaman ini.</p></div></div>
-        <article class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nama</th><th>NIP</th><th>Role aktif</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="adminUsersTable"></tbody></table></div></article>
+        <div class="hero"><div><span class="hero-label">Administrasi TBR · <span id="adminName">Admin</span></span><h2>Overview user</h2><p>Kelola user dan akses tim TBR AREA JAKARTA SAHARJO.</p></div><div class="rank-card"><span>Menunggu approval</span><strong id="adminPendingCount">0</strong><small>permintaan SPV</small></div></div>
+        <div class="metrics"><article class="card metric simple"><div><p>Total user</p><strong id="adminTotalUsers">0</strong><small>terdaftar</small></div></article><article class="card metric simple"><div><p>TBR Staff</p><strong id="adminStaffCount">0</strong><small>user aktif</small></div></article><article class="card metric simple"><div><p>TBR Supervisor</p><strong id="adminSupervisorCount">0</strong><small>disetujui</small></div></article></div>
+        <div class="section-heading"><div><p class="eyebrow">Manajemen akses</p><h2>Daftar user terdaftar</h2><p>Gunakan tab Approval SPV untuk memproses permintaan role supervisor.</p></div></div>
+        <article class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nama</th><th>NIP</th><th>Role aktif</th><th>Status</th></tr></thead><tbody id="adminUsersTable"></tbody></table></div></article>
+      </section>
+
+      <section id="adminApproval" class="page">
+        <div class="hero"><div><span class="hero-label">Administrasi TBR · Approval role</span><h2>Approval TBR SPV</h2><p>Periksa dan setujui user yang mengajukan akses supervisor.</p></div><div class="rank-card"><span>Menunggu approval</span><strong id="adminApprovalCount">0</strong><small>permintaan SPV</small></div></div>
+        <div class="section-heading"><div><p class="eyebrow">Permintaan akses</p><h2>Approval role TBR SPV</h2><p>Role user berubah menjadi TBR Supervisor setelah disetujui.</p></div></div>
+        <article class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nama</th><th>NIP</th><th>Role aktif</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="adminApprovalTable"></tbody></table></div></article>
       </section>
     </main>
   </div>

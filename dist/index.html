@@ -69,10 +69,15 @@
           <h1 id="pageTitle">Dashboard Saya</h1>
           <p id="pageSubtitle">Pantau aktivitas dan pencapaian hari ini.</p>
         </div>
-        <div class="profile">
-          <span id="avatar" class="avatar">NF</span>
-          <div><strong id="profileName">Nadia F.</strong><small id="profileRole">TBR Staff</small></div>
-          <button id="logoutButton" class="logout-button" type="button">Keluar</button>
+        <div class="topbar-actions">
+          <label class="month-filter">Periode
+            <input id="monthFilter" type="month" aria-label="Filter bulan laporan">
+          </label>
+          <div class="profile">
+            <span id="avatar" class="avatar">NF</span>
+            <div><strong id="profileName">Nadia F.</strong><small id="profileRole">TBR Staff</small></div>
+            <button id="logoutButton" class="logout-button" type="button">Keluar</button>
+          </div>
         </div>
       </header>
       <div id="rolePendingNotice" class="role-pending-notice" hidden><strong>Permintaan TBR Supervisor sedang menunggu persetujuan.</strong><span>Sementara ini akun menggunakan akses TBR Staff.</span></div>
@@ -80,7 +85,8 @@
       <section id="dashboard" class="page active">
         <div class="hero hero-clickable" data-open="closingDetail" role="button" tabindex="0" aria-label="Lihat rincian closing bulanan">
           <div>
-            <span class="hero-label">Total closing bulan ini</span>
+            <span class="hero-label">Performa <span id="dashboardRoleLabel">TBR Staff</span></span>
+            <h3 class="hero-name" id="dashboardName">Nama Staff</h3>
             <h2><span id="heroTotal">32</span> <small>closing</small></h2>
             <p><span data-current-month></span> · performa pribadi</p>
           </div>
@@ -179,5 +185,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261026-32"></script>
   <script src="app.js?v=20261026-32"></script>
+  <script src="month-loader.js?v=20261027-01"></script>
+  <script src="month-filter.js?v=20261027-01"></script>
 </body>
 </html>

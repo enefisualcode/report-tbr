@@ -3,7 +3,7 @@ const path = require('path');
 
 const root = __dirname;
 const dist = path.join(root, 'dist');
-const assets = ['index.html', 'styles.css', 'config.js', 'app.js', 'month-loader.js', 'month-filter.js', 'assets/bsi-mark.png'];
+const assets = ['index.html', 'styles.css', 'config.js', 'app.js', 'month-loader.js', 'month-filter.js', 'admin-panel.js', 'assets/bsi-mark.png'];
 
 fs.mkdirSync(dist, { recursive: true });
 for (const asset of assets) {

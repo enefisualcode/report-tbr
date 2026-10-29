@@ -6,6 +6,7 @@
     "dev": "node server.js",
     "start": "node server.js",
     "build": "node build.js",
-    "check": "node --check app.js && node --check server.js && node --check build.js"
+    "check": "node --check app.js && node --check supervisor-panel.js && node --check admin-panel.js && node --check month-loader.js && node --check server.js && node --check build.js"
   }
 }
+

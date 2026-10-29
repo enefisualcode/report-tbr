@@ -1,3 +1,16 @@
+async function loadAllClosings(start, end) {
+  const all = [];
+  const pageSize = 1000;
+  for (let offset = 0; ; offset += pageSize) {
+    const result = await db.from('closings').select('id,user_id,closing_date,product,activity,quantity,notes')
+      .gte('closing_date', start).lte('closing_date', end)
+      .order('closing_date', { ascending: false }).order('id', { ascending: true }).range(offset, offset + pageSize - 1);
+    if (result.error) throw result.error;
+    all.push(...result.data);
+    if (result.data.length < pageSize) return all;
+  }
+}
+
 hydrateVisitPhotos = async function hydrateVisitPhotosForMonth(rows) {
   const start = monthStart(state.month);
   const end = monthEnd(state.month);
@@ -17,13 +30,11 @@ window.tbrLoadMonth = async function loadMonth(month) {
   document.body.classList.add('loading');
   try {
     const [closingResult, visitResult, leaderboardResult] = await Promise.all([
-      db.from('closings').select('id,user_id,closing_date,product,activity,quantity,notes')
-        .gte('closing_date', start).lte('closing_date', end).order('closing_date', { ascending: false }),
+      loadAllClosings(start, end),
       db.from('visits').select('id,user_id,visit_date,notes,photo_path')
         .gte('visit_date', start).lte('visit_date', end).order('visit_date', { ascending: false }).limit(100),
       db.rpc('monthly_leaderboard', { month_start: start })
     ]);
-    if (closingResult.error) throw closingResult.error;
     if (visitResult.error) throw visitResult.error;
     if (leaderboardResult.error) throw leaderboardResult.error;
 
@@ -32,7 +43,7 @@ window.tbrLoadMonth = async function loadMonth(month) {
       hydrateRankingAvatars(leaderboardResult.data)
     ]);
     const staffNames = new Map(hydratedRanking.map((row) => [row.userId, row.name]));
-    records = closingResult.data.map((row) => ({
+    records = closingResult.map((row) => ({
       id: row.id, userId: row.user_id, rawDate: row.closing_date, date: formatDate(row.closing_date),
       product: row.product,
       detail: [state.role === 'supervisor' ? staffNames.get(row.user_id) : null, row.activity, row.notes].filter(Boolean).join(' · '),
@@ -60,3 +71,4 @@ render = function renderWithIdentity() {
   if (monthInput) monthInput.value = state.month;
   document.querySelectorAll('[data-current-month]').forEach((el) => { el.textContent = formatMonth(state.month); });
 };
+

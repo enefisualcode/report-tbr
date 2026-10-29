@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="app-version" content="20261029-45">
+  <meta name="app-version" content="20261029-46">
   <meta name="theme-color" content="#0f766e">
   <title>TBR Performance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,10 +36,11 @@
           <p id="loginMessage" class="message" hidden></p>
         </form>
         <form id="signupForm" novalidate hidden>
-          <p>Daftarkan akun baru menggunakan NIP.</p>
+          <p>Daftarkan akun baru menggunakan NIP dan email BSI.</p>
           <label>Nama lengkap<input id="signupFullName" type="text" autocomplete="name" placeholder="Contoh: Budi Santoso" minlength="2" required></label>
           <label>NIP<input id="signupNip" type="text" autocomplete="username" inputmode="text" placeholder="Contoh: TAD25011113911" maxlength="50" required><small class="field-hint">Gunakan minimal 3 karakter tanpa spasi.</small></label>
-          <label>Password<span class="password-field"><input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required><button type="button" data-password-toggle="signupPassword" aria-label="Tampilkan password">Lihat</button></span></label>
+          <label>Email BSI<input id="signupEmail" type="email" autocomplete="email" placeholder="nama@bsi.co.id" required><small class="field-hint">Email ini digunakan untuk konfirmasi akun.</small></label>
+          <label>Password<span class="password-field"><input id="signupPassword" type="password" autocomplete="new-password" minlength="8" required><button type="button" data-password-toggle="signupPassword" aria-label="Tampilkan password">Lihat</button></span></label>
           <label>Jabatan<select id="signupRole" required><option value="staff">TBR Staff</option><option value="supervisor">TBR Supervisor</option></select></label>
           <button class="button primary full" type="submit">Daftar</button>
           <p id="signupMessage" class="message" hidden></p>
@@ -197,7 +198,7 @@
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261026-32"></script>
-  <script src="app.js?v=20261029-45"></script>
+  <script src="app.js?v=20261029-46"></script>
   <script src="month-loader.js?v=20261029-34"></script>
   <script src="month-filter.js?v=20261027-01"></script>
   <script src="admin-panel.js?v=20261029-38"></script>

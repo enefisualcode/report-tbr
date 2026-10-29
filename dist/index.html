@@ -6,13 +6,13 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="app-version" content="20261026-32">
+  <meta name="app-version" content="20261029-39">
   <meta name="theme-color" content="#0f766e">
   <title>TBR Performance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261026-32">
+  <link rel="stylesheet" href="styles.css?v=20261029-39">
 </head>
 <body>
   <section id="authScreen" class="auth-screen">
@@ -80,7 +80,7 @@
           </div>
         </div>
       </header>
-      <div id="rolePendingNotice" class="role-pending-notice" hidden><strong>Permintaan TBR Supervisor sedang menunggu persetujuan.</strong><span>Sementara ini akun menggunakan akses TBR Staff.</span></div>
+      <div id="rolePendingNotice" class="role-pending-notice" hidden></div>
 
       <section id="dashboard" class="page active">
         <div class="hero hero-clickable" data-open="closingDetail" role="button" tabindex="0" aria-label="Lihat rincian closing bulanan">
@@ -173,9 +173,9 @@
       </section>
 
       <section id="admin" class="page">
-        <div class="hero"><div><span class="hero-label">Administrasi TBR · <span id="adminName">Admin</span></span><h2>Overview user</h2><p>Kelola user dan akses tim TBR AREA JAKARTA SAHARJO.</p></div><div class="rank-card"><span>Menunggu approval</span><strong id="adminPendingCount">0</strong><small>permintaan SPV</small></div></div>
-        <div class="metrics"><article class="card metric simple"><div><p>Total user</p><strong id="adminTotalUsers">0</strong><small>terdaftar</small></div></article><article class="card metric simple"><div><p>TBR Staff</p><strong id="adminStaffCount">0</strong><small>user aktif</small></div></article><article class="card metric simple"><div><p>TBR Supervisor</p><strong id="adminSupervisorCount">0</strong><small>disetujui</small></div></article></div>
-        <div class="section-heading"><div><p class="eyebrow">Manajemen akses</p><h2>Daftar user terdaftar</h2><p>Gunakan tab Approval SPV untuk memproses permintaan role supervisor.</p></div></div>
+        <div class="hero"><div><span class="hero-label">Pusat administrasi · <span id="adminName">Admin</span></span><h2>Manajemen User TBR</h2><p>Pantau akun TBR Staff dan TBR Supervisor dalam satu dashboard.</p></div><div class="rank-card"><span>User aktif</span><strong id="adminActiveUsers">0</strong><small>akun terdaftar</small></div></div>
+        <div class="metrics"><article class="card metric simple"><div><p>Total user</p><strong id="adminTotalUsers">0</strong><small>akun terdaftar</small></div></article><article class="card metric simple"><div><p>TBR Staff</p><strong id="adminStaffCount">0</strong><small>akun aktif</small></div></article><article class="card metric simple"><div><p>TBR Supervisor</p><strong id="adminSupervisorCount">0</strong><small>akses monitoring</small></div></article></div>
+        <div class="section-heading"><div><p class="eyebrow">Direktori user</p><h2>Daftar akun TBR</h2><p>TBR Supervisor aktif otomatis saat pendaftaran, tanpa proses approval.</p></div></div>
         <article class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nama</th><th>NIP</th><th>Role aktif</th><th>Status</th></tr></thead><tbody id="adminUsersTable"></tbody></table></div></article>
       </section>
 
@@ -197,9 +197,9 @@
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261026-32"></script>
-  <script src="app.js?v=20261026-32"></script>
-  <script src="month-loader.js?v=20261027-01"></script>
+  <script src="app.js?v=20261029-37"></script>
+  <script src="month-loader.js?v=20261029-34"></script>
   <script src="month-filter.js?v=20261027-01"></script>
-  <script src="admin-panel.js?v=20261027-01"></script>
+  <script src="admin-panel.js?v=20261029-38"></script>
 </body>
 </html>

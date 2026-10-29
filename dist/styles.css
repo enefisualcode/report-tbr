@@ -79,8 +79,67 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
 .export-card{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(420px,1.2fr);align-items:end;gap:22px}.export-card h2{margin:0;font-size:18px}.export-card>div:first-child>p:last-child{margin:5px 0 0;color:var(--muted);font-size:12px}.export-form{display:grid;grid-template-columns:1fr 1fr auto;align-items:end;gap:10px}.export-form label{color:#455a56;font-size:11px;font-weight:800}.export-form input{min-height:44px;margin-top:5px}.export-form .button{min-height:44px;white-space:nowrap}.export-card>.message{grid-column:1/-1;margin:0}
 @media(max-width:680px){.export-card{display:block}.export-form{grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.export-form .button{grid-column:1/-1;width:100%}.mobile-nav.supervisor-nav{grid-template-columns:repeat(4,minmax(0,1fr))}.mobile-nav.supervisor-nav button[data-route="visits"] .nav-icon{width:25px;height:25px;margin:0;border:0;border-radius:0;background:transparent!important;box-shadow:none;color:inherit}.mobile-nav.supervisor-nav button[data-route="visits"] .nav-icon svg{width:21px;height:21px;stroke:currentColor}.mobile-nav.supervisor-nav button[data-route="visits"].active .nav-label{color:#087D77}.mobile-nav.supervisor-nav button[data-route="ranking"] .nav-icon{width:46px;height:46px;margin-top:-17px;margin-bottom:-4px;border:4px solid #fff;border-radius:50%;background:linear-gradient(145deg,#FFB72C,#E99A08)!important;box-shadow:0 6px 14px rgba(217,144,0,.28);color:#fff}.mobile-nav.supervisor-nav button[data-route="ranking"] .nav-icon svg{width:21px;height:21px;stroke:#fff}.mobile-nav.supervisor-nav button[data-route="ranking"].active .nav-label{color:#D99000}}
 .supervisor-mode #visits .form-card{display:none}.supervisor-mode #visits .content-grid{grid-template-columns:1fr}.supervisor-mode #visits .visit-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:900px){.supervisor-mode #visits .visit-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:480px){.supervisor-mode #visits .visit-gallery{grid-template-columns:1fr}}
+
+/* iOS Safari memperbesar halaman saat kontrol form berukuran di bawah 16px. */
+@media(max-width:680px){input,select,textarea{font-size:16px!important}}
 .role-pending-notice{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:-10px 0 18px;padding:12px 15px;border:1px solid #f0cf78;border-radius:14px;background:#fff4cf;color:#725000;box-shadow:0 5px 16px rgba(122,86,0,.08)}.role-pending-notice[hidden]{display:none}.role-pending-notice strong{font-size:12px}.role-pending-notice span{font-size:11px}@media(max-width:680px){.role-pending-notice{align-items:flex-start;flex-direction:column;gap:2px;margin:-3px 0 15px}}
 /* Period selector and dashboard identity */
-.topbar-actions{display:flex;align-items:center;gap:12px}.month-filter{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;font-weight:750}.month-filter input{width:145px;margin:0;padding:9px 10px}.hero-name{margin:5px 0 0;font-size:20px;letter-spacing:-.02em}
+.topbar-actions{display:flex;align-items:center;gap:12px}.month-filter{display:flex;align-items:center;gap:8px;color:#f5fffd;font-size:11px;font-weight:850;line-height:1;white-space:nowrap;text-shadow:0 1px 2px rgba(0,70,62,.35)}.month-filter input{width:145px;height:54px;margin:0;padding:0 12px;font-size:13px;font-weight:750;border:1px solid rgba(255,255,255,.65);border-radius:16px;background:rgba(255,255,255,.96)}.topbar-actions .profile{height:54px;padding:7px 10px;border-radius:16px}.topbar-actions .logout-button{height:38px;padding:0 12px}.hero-name{margin:5px 0 0;font-size:20px;letter-spacing:-.02em}
 @media(max-width:680px){.topbar-actions{gap:6px;align-items:flex-start}.month-filter{display:block;font-size:9px}.month-filter input{width:126px;font-size:11px;padding:8px 6px}.hero-name{font-size:17px}}
 .table-card small{display:block;color:var(--muted);font-size:10px}.status-pill{display:inline-flex;padding:5px 9px;border-radius:99px;background:var(--teal-soft);color:var(--teal);font-size:10px;font-weight:800}.status-pill.pending{background:#fff4cf;color:#8a6200}.muted-text{color:var(--muted)}
+
+/* Header mobile: samakan tinggi kontrol periode dan kartu profil. */
+@media(max-width:680px){
+  .topbar-actions{align-items:center;gap:8px}
+  .month-filter{display:flex;align-items:center;gap:7px;color:#f5fffd;font-size:11px;font-weight:850;line-height:1;white-space:nowrap;text-shadow:0 1px 2px rgba(0,70,62,.35)}
+  .month-filter input{width:145px;height:46px;margin:0;padding:0 10px;font-size:13px!important;font-weight:750;border:1px solid rgba(255,255,255,.65);border-radius:14px;background:rgba(255,255,255,.96)}
+  .profile{height:46px;padding:5px 8px;border-radius:14px}
+  .profile .avatar{width:34px;height:34px}
+  .logout-button{height:34px;padding:0 12px}
+}
+
+/* Filter per kolom pada tabel riwayat. */
+.history-filter-row th{padding:7px 6px;background:#fff;border-bottom:1px solid var(--line)}
+.history-filter{width:100%;min-width:72px;height:32px;margin:0;padding:5px 7px;border:1px solid #dbe6e3;border-radius:8px;background:#fbfcfc;color:var(--ink);font-size:11px;font-weight:600;text-transform:none;letter-spacing:0}
+.history-filter:focus{border-color:var(--teal-2);box-shadow:0 0 0 2px #0d948818}
+@media(max-width:680px){.history-filter{min-width:104px;height:38px;font-size:14px!important}.history-filter-row th{padding:7px 5px}}
+
+/* Tata letak final untuk layar ponsel: Staff, Supervisor, dan Admin. */
+@media(max-width:680px){
+  .main{padding:16px 14px calc(96px + env(safe-area-inset-bottom))}
+  .topbar{min-height:0;margin:-16px -14px 12px;padding:20px 14px 18px;flex-direction:column;align-items:stretch;gap:14px}
+  .topbar>div:first-child{min-width:0}
+  .topbar h1{font-size:26px;line-height:1.12;overflow-wrap:anywhere}
+  .topbar>div>p:last-child{display:block;font-size:12px;line-height:1.4}
+  .topbar-actions{width:100%;align-items:center;justify-content:space-between;gap:8px}
+  .month-filter{display:flex;flex:1;align-items:center;gap:7px;font-size:11px!important}
+  .month-filter input{width:auto;min-width:0;flex:1;height:44px;padding:0 9px;font-size:16px!important}
+  .topbar-actions .profile{height:44px;flex:0 0 auto;padding:5px 7px;border-radius:14px}
+  .topbar-actions .profile .avatar,.topbar-actions .profile>div{display:none}
+  .topbar-actions .logout-button{height:32px;padding:0 11px;font-size:12px}
+  .hero{min-height:0;padding:20px;flex-direction:column;align-items:stretch;gap:16px}
+  .hero h2{font-size:36px;white-space:normal}
+  .hero h2 small{font-size:14px}
+  .hero p{max-width:none}
+  .rank-card{width:100%;min-width:0;padding:13px 14px}
+  .metrics{grid-template-columns:1fr;gap:10px;margin-top:10px}
+  .metric{min-height:92px;padding:16px}
+  .card{padding:18px;border-radius:20px}
+  .section-heading{margin:22px 0 10px}
+  .section-heading.split,.card-head{flex-wrap:wrap;gap:10px}
+  .text-button{min-width:0}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table-wrap table{min-width:620px}
+  #history .table-wrap table{min-width:760px}
+  .table-card{padding:14px}
+  .mobile-nav:has(button:only-child){grid-template-columns:1fr}
+  .mobile-nav:has(button:only-child) button{flex-direction:row;gap:8px}
+  .mobile-nav.supervisor-nav{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:370px){
+  .topbar-actions{gap:6px}
+  .month-filter{gap:5px;font-size:10px!important}
+  .month-filter input{max-width:132px;padding:0 6px}
+  .topbar-actions .logout-button{padding:0 9px}
+  .hero{padding:18px}
+}

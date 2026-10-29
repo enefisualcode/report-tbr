@@ -33,7 +33,7 @@ window.tbrLoadMonth = async function loadMonth(month) {
     ]);
     const staffNames = new Map(hydratedRanking.map((row) => [row.userId, row.name]));
     records = closingResult.data.map((row) => ({
-      id: row.id, userId: row.user_id, rawDate: row.closing_date, date: formatDate(row.closing_date),
+      id: row.id, userId: row.user_id, rawDate: row.closing_date, date: formatDate(row.closing_date), staffName: staffNames.get(row.user_id) || '',
       product: row.product,
       detail: [state.role === 'supervisor' ? staffNames.get(row.user_id) : null, row.activity, row.notes].filter(Boolean).join(' · '),
       qty: row.quantity

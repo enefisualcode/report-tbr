@@ -8,14 +8,7 @@ Dashboard multi-staff untuk mencatat closing, dokumentasi kunjungan, riwayat, ra
 2. Buka **SQL Editor**, lalu jalankan file di `supabase/migrations` secara berurutan. Untuk database yang sudah menjalankan migration awal, cukup jalankan `202610260002_nip_auth.sql`.
 3. Buka **Authentication → Sign In / Providers → Email** dan nonaktifkan **Confirm email**. Aplikasi memakai NIP sebagai identitas login teknis sehingga tidak mengirim email konfirmasi.
 4. Staff dapat mendaftar melalui tab **Sign Up** menggunakan nama lengkap, NIP, password, dan jabatan. Setelah menjalankan migration `202610260005_full_name.sql`, nama lengkap akan tersimpan di profile.
-5. Setujui permintaan supervisor melalui SQL Editor:
-
-```sql
-update public.profiles
-set role = 'supervisor'
-where nip = 'NIP_SUPERVISOR';
-```
-
+5. Akun yang memilih jabatan **TBR Supervisor** saat Sign Up akan langsung aktif sebagai supervisor.
 6. Ambil **Project URL** dan **Publishable key** dari **Project Settings → API**, lalu isi `config.js`. Publishable key aman digunakan di frontend; jangan pernah memasukkan secret/service-role key ke file ini.
 
 ```js

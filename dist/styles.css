@@ -143,3 +143,12 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
   .topbar-actions .logout-button{padding:0 9px}
   .hero{padding:18px}
 }
+
+/* iOS Safari: font kontrol tetap >=16px, sementara proporsi visual diatur lewat spacing. */
+@media(max-width:680px){
+  input,select,textarea{font-size:16px!important;line-height:1.25;min-height:44px;padding:10px 12px}
+  input::placeholder,textarea::placeholder{font-size:14px;color:#8a9995}
+  .form-card>label,.form-grid label,.product-select-label>span,.export-form label{font-size:12px}
+  .history-filter{font-size:16px!important;line-height:1.2;min-height:38px;padding:7px 8px}
+  .month-filter input{font-size:16px!important;line-height:1.2;min-height:44px;padding:0 9px}
+}

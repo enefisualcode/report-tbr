@@ -18,9 +18,12 @@
     try {
       await window.tbrLoadMonth(monthInput.value);
       updatePeriodLabels();
+    } catch (error) {
+      alert(`Gagal memuat laporan: ${error.message}`);
     } finally {
       monthInput.disabled = false;
     }
   });
   window.tbrUpdatePeriodLabels = updatePeriodLabels;
 })();
+

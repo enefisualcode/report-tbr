@@ -165,8 +165,13 @@
       </section>
 
       <section id="supervisor" class="page">
-        <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div><div class="rank-card"><span>Target tercapai</span><strong id="teamTarget">0%</strong><small>bulan berjalan</small></div></div>
+        <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div><div class="rank-card"><span>Periode laporan</span><strong style="font-size:1.1rem" data-current-month></strong><small>gunakan filter bulan di atas</small></div></div>
         <div class="metrics"><article class="card metric simple"><div><p>Kunjungan tim</p><strong id="teamVisits">0</strong><small>dokumentasi</small></div></article><article class="card metric simple"><div><p>Staff melapor</p><strong id="reportingStaff">0</strong><small>bulan ini</small></div></article><article class="card metric simple"><div><p>Rata-rata closing</p><strong id="teamAverage">0</strong><small>per staff</small></div></article></div>
+        <article class="card section-gap achievement-card">
+          <div class="card-head"><div><p class="eyebrow">Rincian pencapaian</p><h2>Closing seluruh staff</h2><p>Pilih bulan di bagian atas, lalu filter nama dan produk.</p></div><div><strong id="achievementTotal">0</strong> closing <small id="achievementCount">0 laporan</small></div></div>
+          <div class="achievement-filters"><label>Staff<select id="achievementStaff"><option value="">Semua staff</option></select></label><label>Produk<select id="achievementProduct"><option value="">Semua produk</option><option>QRIS</option><option>Tabungan Emas</option><option>BSI Agen</option><option>EDC</option><option>Tabungan</option><option>Cicil Emas</option></select></label><button id="achievementReset" class="button secondary" type="button">Reset filter</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Staff</th><th>Produk</th><th>Aktivitas dan keterangan</th><th>Jumlah</th></tr></thead><tbody id="achievementRows"></tbody></table></div>
+        </article>
         <article class="card export-card section-gap"><div><p class="eyebrow">Laporan pencapaian</p><h2>Download data seluruh staff</h2><p>Pilih periode tanggal untuk membuat file Excel.</p></div><div class="export-form"><label>Dari tanggal<input id="exportStart" type="date"></label><label>Sampai tanggal<input id="exportEnd" type="date"></label><button id="exportExcel" class="button primary" type="button">Download Excel</button></div><p id="exportMessage" class="message" hidden></p></article>
         <article class="card performance-card section-gap"><div class="card-head"><div><p class="eyebrow">Monitoring individu</p><h2>Performa per staff</h2></div><select id="supervisorStaffSelect" class="chart-select" aria-label="Pilih staff"></select></div><div id="supervisorStaffChart" class="staff-chart" aria-label="Grafik performa staff terpilih"></div></article>
         <div class="content-grid section-gap"><article class="card"><div class="card-head"><div><p class="eyebrow">Distribusi</p><h2>Closing per produk</h2></div></div><div id="barChart" class="bar-chart"></div></article><article class="card"><div class="card-head"><div><p class="eyebrow">Monitoring</p><h2>Top staff</h2></div></div><div id="supervisorTop"></div></article></div>
@@ -201,5 +206,7 @@
   <script src="month-loader.js?v=20261027-01"></script>
   <script src="month-filter.js?v=20261027-01"></script>
   <script src="admin-panel.js?v=20261027-01"></script>
+  <script src="supervisor-panel.js?v=20261029-01"></script>
 </body>
 </html>
+

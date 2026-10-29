@@ -151,4 +151,6 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
   .form-card>label,.form-grid label,.product-select-label>span,.export-form label{font-size:12px}
   .history-filter{font-size:16px!important;line-height:1.2;min-height:38px;padding:7px 8px}
   .month-filter input{font-size:16px!important;line-height:1.2;min-height:44px;padding:0 9px}
+  #closingFields .tabungan-field{grid-column:auto!important;margin-bottom:2px}
+  #closingFields .tabungan-field input{padding:11px 9px}
 }

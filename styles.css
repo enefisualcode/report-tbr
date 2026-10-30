@@ -99,11 +99,32 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
   .logout-button{height:34px;padding:0 12px}
 }
 
+/* Pratinjau foto profil dan dokumentasi. */
+.zoomable-photo{cursor:zoom-in}
+.photo-lightbox[hidden]{display:none}
+.photo-lightbox{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px}
+.photo-lightbox-backdrop{position:absolute;inset:0;background:rgba(5,22,20,.82);backdrop-filter:blur(5px)}
+.photo-lightbox-panel{position:relative;z-index:1;display:grid;max-width:min(94vw,900px);max-height:92vh;place-items:center}
+.photo-lightbox-panel img{display:block;max-width:94vw;max-height:88vh;width:auto;height:auto;border-radius:16px;object-fit:contain;box-shadow:0 18px 60px rgba(0,0,0,.4)}
+.photo-lightbox-close{position:absolute;z-index:2;top:-14px;right:-14px;width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:50%;background:#fff;color:#174640;font-size:25px;line-height:1;box-shadow:0 5px 18px rgba(0,0,0,.25)}
+.history-profile-photo img,.visit-image img,.avatar img{cursor:zoom-in}
+@media(max-width:680px){
+  .photo-lightbox{padding:14px}
+  .photo-lightbox-panel img{max-width:calc(100vw - 28px);max-height:82vh;border-radius:12px}
+  .photo-lightbox-close{top:-8px;right:-4px}
+}
+
 /* Filter per kolom pada tabel riwayat. */
 .history-filter-row th{padding:7px 6px;background:#fff;border-bottom:1px solid var(--line)}
 .history-filter{width:100%;min-width:72px;height:32px;margin:0;padding:5px 7px;border:1px solid #dbe6e3;border-radius:8px;background:#fbfcfc;color:var(--ink);font-size:11px;font-weight:600;text-transform:none;letter-spacing:0}
 .history-filter:focus{border-color:var(--teal-2);box-shadow:0 0 0 2px #0d948818}
-@media(max-width:680px){.history-filter{min-width:104px;height:38px;font-size:14px!important}.history-filter-row th{padding:7px 5px}}
+@media(max-width:680px){
+  #history .table-wrap{width:100%;overflow-x:auto;overflow-y:hidden}
+  #history .table-wrap table{table-layout:fixed;min-width:760px}
+  #history .history-filter-row th{padding:7px 5px;overflow:hidden}
+  #history .history-filter{display:block;width:100%;min-width:0;max-width:100%;height:38px;min-inline-size:0;margin:0;overflow:hidden;font-size:14px!important}
+  #history .history-filter[type="date"]{-webkit-appearance:none;appearance:none}
+}
 
 /* Tata letak final untuk layar ponsel: Staff, Supervisor, dan Admin. */
 @media(max-width:680px){

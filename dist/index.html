@@ -194,6 +194,14 @@
       <div id="closingBars" class="closing-bars"></div>
     </section>
   </div>
+
+  <div id="photoLightbox" class="photo-lightbox" hidden>
+    <div class="photo-lightbox-backdrop" data-close="photoLightbox"></div>
+    <section class="photo-lightbox-panel" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+      <button class="photo-lightbox-close" type="button" data-close="photoLightbox" aria-label="Tutup">×</button>
+      <img id="photoLightboxImage" alt="Pratinjau foto">
+    </section>
+  </div>
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261029-50"></script>

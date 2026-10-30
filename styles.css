@@ -155,3 +155,148 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
   #closingFields .tabungan-field{grid-column:auto!important;margin-bottom:2px}
   #closingFields .tabungan-field input{padding:11px 9px}
 }
+
+/* Cegah isi kartu performa saling menimpa pada viewport ponsel yang sempit. */
+@media(max-width:680px){
+  #dashboard .hero{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(118px,145px);
+    align-items:stretch;
+    gap:14px;
+    overflow:hidden;
+  }
+  #dashboard .hero>div:first-child{
+    width:100%;
+    min-width:0;
+  }
+  #dashboard .hero:before{
+    right:-85px;
+    top:-48px;
+    width:180px;
+    height:120px;
+    opacity:.16;
+  }
+  #dashboard .hero:after{
+    right:-36px;
+    top:-76px;
+    width:135px;
+    height:135px;
+    border-width:24px;
+    opacity:.7;
+  }
+  #dashboard .hero-name{
+    max-width:calc(100% - 56px);
+    overflow-wrap:anywhere;
+  }
+  #dashboard .hero h2{
+    margin:8px 0 2px;
+    font-size:clamp(28px,10vw,36px);
+    line-height:1.08;
+    white-space:normal;
+  }
+  #dashboard .hero p{
+    margin-bottom:0;
+    overflow-wrap:anywhere;
+  }
+  #dashboard .rank-card{
+    position:relative;
+    z-index:2;
+    box-sizing:border-box;
+    width:100%;
+    min-width:0;
+    text-align:center;
+    align-self:center;
+  }
+  #dashboard .rank-card>span,
+  #dashboard .rank-card>strong,
+  #dashboard .rank-card>small{
+    display:block;
+    white-space:normal;
+  }
+  #dashboard .rank-card>small{white-space:nowrap}
+  #dashboard .rank-card>small span{display:inline}
+}
+
+@media(max-width:380px){
+  #dashboard .hero{grid-template-columns:minmax(0,1fr) 112px;gap:10px;padding:16px}
+  #dashboard .hero-name{max-width:100%;font-size:16px}
+  #dashboard .hero h2{font-size:30px}
+  #dashboard .rank-card{padding:11px 7px}
+  #dashboard .rank-card strong{font-size:22px}
+  #dashboard .rank-card>small{font-size:10px}
+}
+
+/* Susunan hero di ponsel: ringkasan kiri, ranking di samping kanan. */
+@media(max-width:680px){
+  #dashboard .hero{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) minmax(118px,145px) !important;
+    grid-template-rows:auto !important;
+    flex-direction:row;
+  }
+  #dashboard .hero>div:first-child{
+    grid-column:1 !important;
+    grid-row:1 !important;
+    align-self:center;
+  }
+  #dashboard .rank-card{
+    grid-column:2 !important;
+    grid-row:1 !important;
+    width:auto !important;
+    min-width:0 !important;
+    margin:0 !important;
+  }
+  #dashboard .hero h2 small:after{content:none !important}
+}
+@media(max-width:380px){
+  #dashboard .hero{grid-template-columns:minmax(0,1fr) 112px !important}
+}
+
+/* Jaga semua bagian dashboard tetap tepat selebar viewport ponsel. */
+@media(max-width:680px){
+  html,body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+  }
+  .app-shell,.main,.page{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+  #dashboard,
+  #dashboard .hero,
+  #dashboard .quick-actions,
+  #dashboard .performance-card,
+  #dashboard .content-grid,
+  #dashboard .content-grid>.card{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+  #dashboard .content-grid{
+    grid-template-columns:minmax(0,1fr);
+  }
+  #dashboard .card-head{
+    min-width:0;
+  }
+  #dashboard .card-head>h2,
+  #dashboard .card-head>div{
+    min-width:0;
+  }
+  #dashboard .text-button{
+    flex:0 0 auto;
+    max-width:48%;
+  }
+  #dashboard .staff-chart{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    overflow:hidden;
+  }
+  #dashboard .staff-chart svg{
+    display:block;
+    max-width:100%;
+    overflow:hidden;
+  }
+}

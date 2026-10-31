@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261029-42">
+  <link rel="stylesheet" href="styles.css?v=20261031-43">
 </head>
 <body>
   <section id="authScreen" class="auth-screen">
@@ -160,7 +160,8 @@
         </article>
         <article class="card">
           <div class="card-head history-head"><div><p class="eyebrow">Data laporan</p><h2>Riwayat closing</h2></div><input id="historySearch" class="search" placeholder="Cari produk atau merchant…"></div>
-          <div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Produk</th><th>Aktivitas</th><th>Jumlah</th><th>Status</th></tr></thead><tbody id="historyTable"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Produk</th><th>Aktivitas</th><th>Jumlah</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="historyTable"></tbody></table></div>
+          <p id="historyMessage" class="message" hidden></p>
         </article>
       </section>
 
@@ -195,6 +196,15 @@
     </section>
   </div>
 
+  <div id="staffClosingDetail" class="modal" hidden>
+    <div class="modal-backdrop" data-close="staffClosingDetail"></div>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="staffClosingTitle">
+      <button class="modal-close" data-close="staffClosingDetail" aria-label="Tutup">×</button>
+      <p class="eyebrow" data-current-month></p><h2 id="staffClosingTitle">Closing staff</h2><p id="staffClosingSubtitle" class="modal-subtitle"></p>
+      <div id="staffClosingRows" class="staff-closing-rows"></div>
+    </section>
+  </div>
+
   <div id="photoLightbox" class="photo-lightbox" hidden>
     <div class="photo-lightbox-backdrop" data-close="photoLightbox"></div>
     <section class="photo-lightbox-panel" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
@@ -205,7 +215,7 @@
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261029-50"></script>
-  <script src="app.js?v=20261029-53"></script>
+  <script src="app.js?v=20261031-56"></script>
   <script src="month-loader.js?v=20261029-34"></script>
   <script src="month-filter.js?v=20261027-01"></script>
   <script src="admin-panel.js?v=20261029-38"></script>

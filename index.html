@@ -166,8 +166,8 @@
       </section>
 
       <section id="supervisor" class="page">
-        <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div><div class="rank-card"><span>Target tercapai</span><strong id="teamTarget">0%</strong><small>bulan berjalan</small></div></div>
-        <div class="metrics"><article class="card metric simple"><div><p>Kunjungan tim</p><strong id="teamVisits">0</strong><small>dokumentasi</small></div></article><article class="card metric simple"><div><p>Staff melapor</p><strong id="reportingStaff">0</strong><small>bulan ini</small></div></article><article class="card metric simple"><div><p>Rata-rata closing</p><strong id="teamAverage">0</strong><small>per staff</small></div></article></div>
+        <div class="hero"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div></div>
+        <div class="metrics"><article class="card metric simple"><div><p>Kunjungan tim</p><strong id="teamVisits">0</strong><small>dokumentasi</small></div></article><article class="card metric simple"><div><p>Staff melapor hari ini</p><strong id="reportingStaff">0</strong><small>input closing hari ini</small></div></article></div>
         <article class="card export-card section-gap"><div><p class="eyebrow">Laporan pencapaian</p><h2>Download data seluruh staff</h2><p>Pilih periode tanggal untuk membuat file Excel.</p></div><div class="export-form"><label>Dari tanggal<input id="exportStart" type="date"></label><label>Sampai tanggal<input id="exportEnd" type="date"></label><button id="exportExcel" class="button primary" type="button">Download Excel</button></div><p id="exportMessage" class="message" hidden></p></article>
         <article class="card performance-card section-gap"><div class="card-head"><div><p class="eyebrow">Monitoring individu</p><h2>Performa per staff</h2></div><select id="supervisorStaffSelect" class="chart-select" aria-label="Pilih staff"></select></div><div id="supervisorStaffChart" class="staff-chart" aria-label="Grafik performa staff terpilih"></div></article>
         <div class="content-grid section-gap"><article class="card"><div class="card-head"><div><p class="eyebrow">Distribusi</p><h2>Closing per produk</h2></div></div><div id="barChart" class="bar-chart"></div></article><article class="card"><div class="card-head"><div><p class="eyebrow">Monitoring</p><h2>Top staff</h2></div></div><div id="supervisorTop"></div></article></div>
@@ -215,7 +215,7 @@
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261029-50"></script>
-  <script src="app.js?v=20261031-61"></script>
+  <script src="app.js?v=20261031-65"></script>
   <script src="month-loader.js?v=20261029-34"></script>
   <script src="month-filter.js?v=20261027-01"></script>
   <script src="admin-panel.js?v=20261029-38"></script>

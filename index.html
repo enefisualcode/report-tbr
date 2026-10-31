@@ -196,6 +196,15 @@
     </section>
   </div>
 
+  <div id="staffClosingDetail" class="modal" hidden>
+    <div class="modal-backdrop" data-close="staffClosingDetail"></div>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="staffClosingTitle">
+      <button class="modal-close" data-close="staffClosingDetail" aria-label="Tutup">×</button>
+      <p class="eyebrow" data-current-month></p><h2 id="staffClosingTitle">Closing staff</h2><p id="staffClosingSubtitle" class="modal-subtitle"></p>
+      <div id="staffClosingRows" class="staff-closing-rows"></div>
+    </section>
+  </div>
+
   <div id="photoLightbox" class="photo-lightbox" hidden>
     <div class="photo-lightbox-backdrop" data-close="photoLightbox"></div>
     <section class="photo-lightbox-panel" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
@@ -206,7 +215,7 @@
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261029-50"></script>
-  <script src="app.js?v=20261031-55"></script>
+  <script src="app.js?v=20261031-56"></script>
   <script src="month-loader.js?v=20261029-34"></script>
   <script src="month-filter.js?v=20261027-01"></script>
   <script src="admin-panel.js?v=20261029-38"></script>

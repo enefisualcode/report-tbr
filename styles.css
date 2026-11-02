@@ -183,6 +183,9 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
   #closingFields .tabungan-field input{padding:11px 9px}
 }
 
+/* Date controls in the export card must stay inside their grid column on phones. */
+@media(max-width:680px){.export-form input[type="date"]{display:block;width:100%;min-width:0;max-width:100%;padding:10px 8px;font-size:14px!important}}
+
 /* Cegah isi kartu performa saling menimpa pada viewport ponsel yang sempit. */
 @media(max-width:680px){
   #dashboard .hero{

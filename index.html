@@ -133,9 +133,9 @@
         <div class="content-grid">
           <form id="visitForm" class="card form-card">
             <div class="card-head"><div><p class="eyebrow">Aktivitas lapangan</p><h2>Tambah dokumentasi</h2></div></div>
-            <label>Tanggal<input id="visitDate" type="date" required></label>
+            <div class="visit-meta-fields"><label>Tanggal<input id="visitDate" type="date" required></label>
+            <label>Foto dokumentasi<input id="visitPhoto" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"><small class="field-hint">JPG, PNG, atau WebP. Foto besar akan dikompres otomatis.</small></label></div>
             <label>Keterangan<textarea id="visitNotes" placeholder="Hasil kunjungan secara singkat"></textarea></label>
-            <label>Foto dokumentasi<input id="visitPhoto" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"><small class="field-hint">JPG, PNG, atau WebP. Foto besar akan dikompres otomatis.</small></label>
             <button class="button primary full" type="submit">Simpan dokumentasi</button>
             <p id="visitMessage" class="message" hidden></p>
           </form>

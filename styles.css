@@ -59,6 +59,7 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
 .button.primary{background:linear-gradient(100deg,#007d74,#07978b)}.button.primary:hover{background:linear-gradient(100deg,#006f68,#078a80)}
 .hero>div{position:relative;z-index:1}.hero-label,.hero p{color:#52635f}.rank-card span,.rank-card small{color:#466a64}.rank-card strong{color:#006f68}
 @media(max-width:680px){.closing-heading{background:rgba(255,255,255,.82)}.topbar .eyebrow,.topbar h1,.topbar>div>p:last-child{color:#fff}.section-heading h2{color:#102321}.section-heading p{color:#3f5551}}
+#supervisor .hero h2 small:after{content:none}
 .avatar{overflow:hidden}.avatar img{display:block;width:100%;height:100%;object-fit:cover}
 .history-profile-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;margin-bottom:16px;padding:22px}
 .history-profile-photo{display:grid;width:88px;height:88px;overflow:hidden;place-items:center;border-radius:24px;background:linear-gradient(145deg,#008f84,#48bba9);box-shadow:0 8px 20px rgba(0,126,116,.2);color:#fff;font-size:25px;font-weight:900}

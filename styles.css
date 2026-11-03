@@ -108,6 +108,7 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
   .profile .avatar{width:34px;height:34px}
   .logout-button{height:34px;padding:0 12px}
 }
+.closing-bar-row>span{text-align:left}
 
 /* Pratinjau foto profil dan dokumentasi. */
 .zoomable-photo{cursor:zoom-in}

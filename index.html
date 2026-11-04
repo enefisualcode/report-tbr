@@ -220,6 +220,18 @@
       <img id="photoLightboxImage" alt="Pratinjau foto">
     </section>
   </div>
+  <div id="visitDeleteDialog" class="modal visit-delete-dialog" hidden>
+    <div class="modal-backdrop" data-close="visitDeleteDialog"></div>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="visitDeleteTitle">
+      <p class="eyebrow">Konfirmasi</p>
+      <h2 id="visitDeleteTitle">Hapus dokumentasi?</h2>
+      <p class="modal-subtitle">Foto dan data dokumentasi yang dihapus tidak dapat dipulihkan.</p>
+      <div class="visit-delete-actions">
+        <button id="visitDeleteCancel" class="button secondary" type="button">Batal</button>
+        <button id="visitDeleteConfirm" class="button danger" type="button">Hapus</button>
+      </div>
+    </section>
+  </div>
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261029-50"></script>

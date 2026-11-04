@@ -65,11 +65,10 @@ async function deleteVisit(id, button){
   if(!visit)return;
   button.disabled=true;
   button.textContent='Menghapus…';
-  const {data,error}=await db.from('visits').delete().eq('id',id).eq('user_id',currentUser.id).select('id');
+  const {data:deletedPhotoPath,error}=await db.rpc('delete_my_visit',{target_id:id});
   if(error){button.disabled=false;button.innerHTML='&times;';return showMessage($('visitMessage'),`Gagal menghapus dokumentasi: ${error.message}`,true)}
-  if(!data?.length){button.disabled=false;button.innerHTML='&times;';return showMessage($('visitMessage'),'Dokumentasi tidak ditemukan atau Anda tidak memiliki akses untuk menghapusnya.',true)}
-  if(visit.photoPath){
-    const removal=await db.storage.from('visit-photos').remove([visit.photoPath]);
+  if(deletedPhotoPath||visit.photoPath){
+    const removal=await db.storage.from('visit-photos').remove([deletedPhotoPath||visit.photoPath]);
     if(removal.error)showMessage($('visitMessage'),'Dokumentasi berhasil dihapus, tetapi foto tidak dapat dibersihkan dari penyimpanan.',true);
   }
   if(!visit.photoPath||!$('visitMessage').classList.contains('error'))showMessage($('visitMessage'),'Dokumentasi dan foto berhasil dihapus.');

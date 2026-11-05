@@ -65,14 +65,29 @@ async function deleteVisit(id, button){
   if(!visit)return;
   button.disabled=true;
   button.textContent='Menghapus…';
-  const {data:deletedPhotoPath,error}=await db.rpc('delete_my_visit',{target_id:id});
-  if(error){button.disabled=false;button.innerHTML='&times;';return showMessage($('visitMessage'),`Gagal menghapus dokumentasi: ${error.message}`,true)}
-  if(deletedPhotoPath||visit.photoPath){
-    const removal=await db.storage.from('visit-photos').remove([deletedPhotoPath||visit.photoPath]);
-    if(removal.error)showMessage($('visitMessage'),'Dokumentasi berhasil dihapus, tetapi foto tidak dapat dibersihkan dari penyimpanan.',true);
+  try{
+    // Gunakan RLS langsung, bukan RPC yang mungkin belum diterapkan pada project produksi.
+    // select() memastikan penghapusan yang ditolak RLS tidak dilaporkan sebagai berhasil.
+    const {data:deletedVisit,error}=await db.from('visits').delete().eq('id',id).eq('user_id',currentUser.id).select('photo_path').maybeSingle();
+    if(error)throw error;
+    if(!deletedVisit)throw new Error('Dokumentasi tidak ditemukan atau Anda tidak memiliki akses untuk menghapusnya.');
+
+    if(deletedVisit.photo_path||visit.photoPath){
+      const removal=await db.storage.from('visit-photos').remove([deletedVisit.photo_path||visit.photoPath]);
+      if(removal.error){
+        visits=visits.filter(item=>item.id!==id);
+        render();
+        return showMessage($('visitMessage'),'Dokumentasi berhasil dihapus, tetapi foto tidak dapat dibersihkan dari penyimpanan.',true);
+      }
+    }
+    visits=visits.filter(item=>item.id!==id);
+    render();
+    showMessage($('visitMessage'),'Dokumentasi dan foto berhasil dihapus.');
+  }catch(error){
+    button.disabled=false;
+    button.innerHTML='&times;';
+    showMessage($('visitMessage'),`Gagal menghapus dokumentasi: ${error.message||'Silakan coba lagi.'}`,true);
   }
-  if(!visit.photoPath||!$('visitMessage').classList.contains('error'))showMessage($('visitMessage'),'Dokumentasi dan foto berhasil dihapus.');
-  await loadData();
 }
 function requestVisitDeletion(id,button){state.pendingVisitDelete={id,button};$('visitDeleteDialog').hidden=false}
 async function startEditClosing(id){

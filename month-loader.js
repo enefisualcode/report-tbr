@@ -3,10 +3,10 @@ hydrateVisitPhotos = async function hydrateVisitPhotosForMonth(rows) {
   const end = monthEnd(state.month);
   const filtered = rows.filter((row) => row.visit_date >= start && row.visit_date <= end);
   const paths = filtered.map((row) => row.photo_path).filter(Boolean);
-  if (!paths.length) return filtered.map((row) => ({ userId: row.user_id, rawDate: row.visit_date, date: formatDate(row.visit_date), note: row.notes, photo: '' }));
+  if (!paths.length) return filtered.map((row) => ({ id: row.id, photoPath: row.photo_path || '', userId: row.user_id, rawDate: row.visit_date, date: formatDate(row.visit_date), note: row.notes, photo: '' }));
   const signed = await db.storage.from('visit-photos').createSignedUrls(paths, 3600);
   const urls = new Map((signed.data || []).map((item) => [item.path, item.signedUrl || '']));
-  return filtered.map((row) => ({ userId: row.user_id, rawDate: row.visit_date, date: formatDate(row.visit_date), note: row.notes, photo: row.photo_path ? urls.get(row.photo_path) || '' : '' }));
+  return filtered.map((row) => ({ id: row.id, photoPath: row.photo_path || '', userId: row.user_id, rawDate: row.visit_date, date: formatDate(row.visit_date), note: row.notes, photo: row.photo_path ? urls.get(row.photo_path) || '' : '' }));
 };
 
 window.tbrLoadMonth = async function loadMonth(month) {

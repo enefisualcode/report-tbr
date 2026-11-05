@@ -66,11 +66,9 @@ async function deleteVisit(id, button){
   button.disabled=true;
   button.textContent='Menghapus…';
   try{
-    // Gunakan RLS langsung, bukan RPC yang mungkin belum diterapkan pada project produksi.
-    // select() memastikan penghapusan yang ditolak RLS tidak dilaporkan sebagai berhasil.
-    const {data:deletedVisit,error}=await db.from('visits').delete().eq('id',id).eq('user_id',currentUser.id).select('photo_path').maybeSingle();
+    const {data:deletedVisit,error}=await db.rpc('delete_my_visit_v2',{target_id:id});
     if(error)throw error;
-    if(!deletedVisit)throw new Error('Dokumentasi tidak ditemukan atau Anda tidak memiliki akses untuk menghapusnya.');
+    if(!deletedVisit?.deleted||deletedVisit.id!==id)throw new Error('Database tidak mengonfirmasi penghapusan dokumentasi.');
 
     if(deletedVisit.photo_path||visit.photoPath){
       const removal=await db.storage.from('visit-photos').remove([deletedVisit.photo_path||visit.photoPath]);

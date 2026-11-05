@@ -115,11 +115,12 @@
 
       <section id="closing" class="page">
         <div class="section-heading closing-heading"><div><h2>Produk closing</h2><p>Pilih produk yang ingin dicatat.</p></div></div>
+        <div id="closingEditSummary" class="closing-edit-summary" hidden></div>
         <label class="product-select-label"><span>Pilih produk</span><select id="productSelect" class="product-select"></select></label>
         <form id="closingForm" class="card form-card">
-          <div class="card-head closing-card-head"><div><h2 id="formTitle">Detail QRIS</h2><p>Lengkapi informasi closing di bawah ini.</p></div><span class="pill">Input manual</span></div>
+          <div class="card-head closing-card-head"><div><h2 id="formTitle">Detail QRIS</h2><p id="closingFormSubtitle">Lengkapi informasi closing di bawah ini.</p></div><span id="closingModePill" class="pill">Input manual</span></div>
           <div id="closingFields" class="form-grid"></div>
-          <div class="form-actions"><button type="reset" class="button secondary">Reset</button><button class="button primary" type="submit">Simpan closing</button></div>
+          <div class="form-actions"><button id="closingCancel" type="button" class="button secondary">Reset</button><button class="button primary" type="submit">Simpan closing</button></div>
           <p id="closingMessage" class="message" hidden></p>
         </form>
       </section>
@@ -235,7 +236,7 @@
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261029-50"></script>
-  <script src="app.js?v=20261105-73"></script>
+  <script src="app.js?v=20261105-75"></script>
   <script src="month-loader.js?v=20261105-74"></script>
   <script src="month-filter.js?v=20261027-01"></script>
   <script src="admin-panel.js?v=20261029-38"></script>

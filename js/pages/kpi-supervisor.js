@@ -4,10 +4,10 @@
   const app = global.TBR;
   const { store, utils, views } = app;
   const definitions = [
-    { name: 'BSI Agen', target: 4, matches: row => row.product === 'BSI Agen' && /akuisisi baru/i.test(row.activity || row.detail || '') },
-    { name: 'QRIS', target: 10, matches: row => row.product === 'QRIS' && /registrasi baru/i.test(row.activity || row.detail || '') },
-    { name: 'EDC', target: 3, matches: row => row.product === 'EDC' && /pemasangan baru/i.test(row.activity || row.detail || '') },
-    { name: 'New CIF', target: 50, matches: row => row.product === 'Tabungan' && /new cif/i.test(row.activity || row.detail || '') }
+    { key: 'agen', name: 'BSI Agen', target: 4, matches: row => row.product === 'BSI Agen' && /akuisisi baru/i.test(row.activity || row.detail || '') },
+    { key: 'qris', name: 'QRIS', target: 10, matches: row => row.product === 'QRIS' && /registrasi baru/i.test(row.activity || row.detail || '') },
+    { key: 'edc', name: 'EDC', target: 3, matches: row => row.product === 'EDC' && /pemasangan baru/i.test(row.activity || row.detail || '') },
+    { key: 'cif', name: 'New CIF', target: 50, matches: row => row.product === 'Tabungan' && /new cif/i.test(row.activity || row.detail || '') }
   ];
   const targetPerStaff = definitions.reduce((sum, definition) => sum + definition.target, 0);
   const filters = { search: '', status: 'all' };
@@ -36,6 +36,15 @@
     const actual = items.reduce((sum, item) => sum + item.actual, 0);
     return { items, actual, target: targetPerStaff, percentage: percent(actual, targetPerStaff) };
   }
+  function productIcon(key) {
+    const icons = {
+      qris: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h5v5H4zM15 4h5v5h-5zM4 15h5v5H4zM16 16h2v2h-2zM12 12h3v3h-3zM16 12h4v2h-4zM12 16h2v4h-2z"/></svg>',
+      agen: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18M5 10v9h14v-9M2 10l3-5h14l3 5M9 10v4h6v-4"/><path d="M8 19v-4h8v4"/></svg>',
+      edc: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 10h8M9 15h1M12 15h1M15 15h1M9 18h1M12 18h1M15 18h1"/></svg>',
+      cif: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.2 2.7-5.5 6-5.5s6 2.3 6 5.5M18 8v8M14 12h8"/></svg>'
+    };
+    return icons[key] || '';
+  }
   function renderStaff() {
     const section = views.byId('staffKpiSection');
     if (!section) return;
@@ -44,10 +53,13 @@
     if (!visible) return;
     const row = staffRow();
     views.byId('staffKpiTotal').innerHTML = `<div class="staff-kpi-total-bar" aria-hidden="true"><i style="width:${Math.min(100, row.percentage)}%"></i></div><strong>${row.percentage}%</strong>`;
-    views.byId('staffKpiCards').innerHTML = row.items.map(item => {
+    const visualItems = [row.items.find(item => item.key === 'qris'), row.items.find(item => item.key === 'agen'), row.items.find(item => item.key === 'edc'), row.items.find(item => item.key === 'cif')].filter(Boolean);
+    const highestPercentage = Math.max(...visualItems.map(item => percent(item.actual, item.target)));
+    views.byId('staffKpiCards').innerHTML = visualItems.map(item => {
       const achieved = item.actual >= item.target;
       const status = !item.actual ? { key: 'not-started', label: 'Belum mulai' } : achieved ? { key: 'achieved', label: 'Target tercapai' } : { key: 'attention', label: `${item.target - item.actual} NOA lagi` };
-      return `<article class="staff-kpi-card"><small>${item.name}</small><strong>${item.actual} / ${item.target}</strong><small>NOA · ${percent(item.actual, item.target)}%</small><div class="progress"><span style="width:${width(item.actual, item.target)}%"></span></div><span class="kpi-status ${status.key}">${status.label}</span></article>`;
+      const isBest = item.actual > 0 && percent(item.actual, item.target) === highestPercentage;
+      return `<article class="staff-kpi-card staff-kpi-${item.key}"><span class="staff-kpi-icon">${productIcon(item.key)}</span><div class="staff-kpi-content"><div class="staff-kpi-card-head"><small class="staff-kpi-name">${item.name}</small>${isBest ? '<span class="staff-kpi-best">♛ Terbaik</span>' : ''}</div><div class="staff-kpi-result"><strong class="staff-kpi-percent">${percent(item.actual, item.target)}%</strong><span class="kpi-status ${status.key}">${status.label}</span></div><div class="progress"><span style="width:${width(item.actual, item.target)}%"></span></div><div class="staff-kpi-footer"><small>Target: ${item.target} NOA</small><small>Tercapai: ${item.actual} NOA</small></div></div></article>`;
     }).join('');
   }
   function render() {

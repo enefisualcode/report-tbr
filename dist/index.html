@@ -6,13 +6,14 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="app-version" content="20261029-52">
+  <meta name="app-version" content="20261108-10">
   <meta name="theme-color" content="#0f766e">
   <title>TBR Performance</title>
+  <link rel="icon" href="assets/bsi-mark.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261104-70">
+  <link rel="stylesheet" href="styles.css?v=20261108-10">
 </head>
 <body>
   <section id="authScreen" class="auth-screen">
@@ -91,6 +92,10 @@
           </div>
           <div class="rank-card"><span>Ranking area</span><strong id="heroRank">#1</strong><small>dari <span id="heroStaffCount">0</span> staff</small></div>
         </div>
+        <section id="staffKpiSection" class="staff-kpi section-gap" aria-labelledby="staffKpiTitle">
+          <div class="section-heading split kpi-section-heading"><div><p class="eyebrow">Target pribadi</p><h2 id="staffKpiTitle">My Achievement</h2><p>Realisasi akuisisi untuk periode yang dipilih.</p></div><div id="staffKpiTotal" class="staff-kpi-total" aria-label="Persentase pencapaian KPI"></div></div>
+          <div id="staffKpiCards" class="staff-kpi-grid" aria-label="Pencapaian KPI pribadi"></div>
+        </section>
         <div class="section-heading"><div><h2>Akses cepat</h2></div></div>
         <div class="quick-actions">
           <button data-route="closing"><span class="quick-action-icon closing-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Input closing</strong><small>Catat pencapaian baru</small></div><b>→</b></button>
@@ -167,7 +172,15 @@
 
       <section id="supervisor" class="page">
         <div class="hero hero-clickable" data-open="teamClosingDetail" role="button" tabindex="0" aria-label="Lihat rincian closing masing-masing TBR"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div></div>
-        <div class="metrics"><article class="card metric simple"><div><p>Staff melapor hari ini</p><strong id="reportingStaff">0</strong><small>input closing hari ini</small></div></article></div>
+        <div class="metrics"><article class="card metric simple"><div><p>Staf yang sudah melapor hari ini</p><strong id="reportingStaff">0</strong><small id="reportingStaffNames">Belum ada staf yang melapor hari ini.</small></div></article></div>
+        <section class="kpi-supervisor section-gap" aria-labelledby="supervisorKpiTitle">
+          <div class="section-heading split kpi-section-heading"><div><p class="eyebrow">Monitoring target</p><h2 id="supervisorKpiTitle">Pencapaian KPI per TBR Staff</h2><p>Realisasi akuisisi dibandingkan target bulanan setiap staf.</p></div></div>
+          <div class="kpi-team-summary" id="kpiTeamSummary" aria-label="Ringkasan KPI tim"></div>
+          <article class="card kpi-table-card">
+            <div class="kpi-table-toolbar"><div><strong>Daftar pencapaian staf</strong><small>Klik staf untuk melihat detail KPI.</small></div><div class="kpi-table-filters"><input id="kpiStaffSearch" class="search" type="search" placeholder="Cari nama staf" aria-label="Cari nama staf"><select id="kpiStatusFilter" aria-label="Filter status KPI"><option value="all">Semua status</option><option value="achieved">Target tercapai</option><option value="attention">Perlu perhatian</option><option value="not-started">Belum ada capaian</option></select></div></div>
+            <div class="table-wrap"><table class="kpi-table"><thead><tr><th>Nama TBR Staff</th><th>BSI Agen</th><th>QRIS</th><th>EDC</th><th>New CIF</th><th>Total capaian</th><th></th></tr></thead><tbody id="supervisorKpiTable"></tbody></table></div>
+          </article>
+        </section>
         <article class="card export-card section-gap"><div><p class="eyebrow">Laporan pencapaian</p><h2>Download data seluruh staff</h2><p>Pilih periode tanggal untuk membuat file Excel.</p></div><div class="export-form"><label>Dari tanggal<input id="exportStart" type="date"></label><label>Sampai tanggal<input id="exportEnd" type="date"></label><button id="exportExcel" class="button primary" type="button">Download Excel</button></div><p id="exportMessage" class="message" hidden></p></article>
         <article class="card performance-card section-gap"><div class="card-head"><div><p class="eyebrow">Monitoring individu</p><h2>Performa per staff</h2></div><select id="supervisorStaffSelect" class="chart-select" aria-label="Pilih staff"></select></div><div id="supervisorStaffChart" class="staff-chart" aria-label="Grafik performa staff terpilih"></div></article>
         <div class="content-grid section-gap"><article class="card"><div class="card-head"><div><p class="eyebrow">Distribusi</p><h2>Closing per produk</h2></div></div><div id="barChart" class="bar-chart"></div></article><article class="card"><div class="card-head"><div><p class="eyebrow">Monitoring</p><h2>Top staff</h2></div></div><div id="supervisorTop"></div></article></div>
@@ -214,6 +227,14 @@
     </section>
   </div>
 
+  <div id="supervisorKpiDetail" class="modal" hidden>
+    <div class="modal-backdrop" data-close="supervisorKpiDetail"></div>
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="supervisorKpiDetailTitle">
+      <button class="modal-close" data-close="supervisorKpiDetail" aria-label="Tutup">×</button>
+      <p class="eyebrow" data-current-month></p><h2 id="supervisorKpiDetailTitle">KPI TBR Staff</h2><p id="supervisorKpiDetailSubtitle" class="modal-subtitle"></p>
+      <div id="supervisorKpiDetailRows" class="kpi-detail-rows"></div>
+    </section>
+  </div>
   <div id="photoLightbox" class="photo-lightbox" hidden>
     <div class="photo-lightbox-backdrop" data-close="photoLightbox"></div>
     <section class="photo-lightbox-panel" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
@@ -236,9 +257,11 @@
   <nav id="mobileNav" class="mobile-nav" aria-label="Navigasi mobile"></nav>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js?v=20261029-50"></script>
-  <script src="app.js?v=20261105-75"></script>
-  <script src="month-loader.js?v=20261105-74"></script>
-  <script src="month-filter.js?v=20261027-01"></script>
-  <script src="admin-panel.js?v=20261029-38"></script>
+  <script src="js/core/core.js?v=20261108-01"></script>
+  <script src="js/services/services.js?v=20261108-01"></script>
+  <script src="js/views/views.js?v=20261108-03"></script>
+  <script src="js/pages/admin.js?v=20261108-01"></script>
+  <script src="js/pages/kpi-supervisor.js?v=20261108-03"></script>
+  <script src="js/main.js?v=20261108-01"></script>
 </body>
 </html>

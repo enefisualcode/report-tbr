@@ -1,49 +1,85 @@
 # TBR Performance
 
-Dashboard multi-staff untuk mencatat closing, dokumentasi kunjungan, riwayat, ranking, dan monitoring supervisor. Autentikasi, database, pembatasan akses, serta penyimpanan foto menggunakan Supabase.
+Dashboard Vanilla JavaScript untuk pencatatan closing, dokumentasi kunjungan, ranking staf, monitoring supervisor, KPI, dan administrasi pengguna. Supabase tetap menjadi backend untuk autentikasi, PostgreSQL, RPC, Row Level Security, dan penyimpanan foto.
 
-## 1. Siapkan Supabase
+## Menjalankan aplikasi
 
-1. Buat project di Supabase.
-2. Buka **SQL Editor**, lalu jalankan file di `supabase/migrations` secara berurutan. Untuk database yang sudah menjalankan migration awal, cukup jalankan `202610260002_nip_auth.sql`.
-3. Buka **Authentication → Sign In / Providers → Email** dan nonaktifkan **Confirm email**. Aplikasi memakai NIP sebagai identitas login teknis sehingga tidak mengirim email konfirmasi.
-4. Staff dapat mendaftar melalui tab **Sign Up** menggunakan nama lengkap, NIP, password, dan jabatan. Setelah menjalankan migration `202610260005_full_name.sql`, nama lengkap akan tersimpan di profile.
-5. Akun yang memilih jabatan **TBR Supervisor** saat Sign Up akan langsung aktif sebagai supervisor.
-6. Ambil **Project URL** dan **Publishable key** dari **Project Settings → API**, lalu isi `config.js`. Publishable key aman digunakan di frontend; jangan pernah memasukkan secret/service-role key ke file ini.
-
-```js
-window.TBR_CONFIG = {
-  supabaseUrl: 'https://PROJECT_ID.supabase.co',
-  supabasePublishableKey: 'sb_publishable_...'
-};
-```
-
-## 2. Jalankan
+1. Isi `config.js` dengan Project URL dan publishable key Supabase. Jangan gunakan service-role key di frontend.
+2. Build source ke folder `dist`.
+3. Jalankan server statis lokal.
 
 ```bash
 npm run build
 npm start
 ```
 
-Buka `http://localhost:4173`. Setelah mengubah source, jalankan kembali `npm run build` agar folder `dist` diperbarui untuk deployment GitHub Pages.
+Buka `http://127.0.0.1:4173`. Perintah `npm run dev` menjalankan server yang sama. Setiap perubahan source perlu diikuti `npm run build` karena server melayani isi `dist`.
 
 ## Pemeriksaan
 
 ```bash
 npm run check
+npm test
+npm run build
 ```
 
-## Struktur data dan keamanan
+- `npm run check` memeriksa sintaks seluruh JavaScript dan memastikan aset lokal yang dirujuk `index.html` tersedia.
+- `npm test` menjalankan pengujian ringan untuk utilitas tanggal, normalisasi closing, filter riwayat, escape HTML, dan total produk.
+- `npm run build` membersihkan lalu menghasilkan ulang `dist` dari source yang terdaftar di `build.js`.
 
-- `profiles`: nama, area, dan role staff/supervisor.
-- `closings`: laporan closing per pengguna.
-- `visits`: kunjungan dan referensi foto.
-- bucket private `visit-photos`: foto diakses menggunakan URL sementara.
-- Migration `202610260006_visit_photo_storage.sql` memastikan bucket foto, batas 5 MB, dan policy upload/read/delete tersedia.
-- bucket private `profile-photos`: foto profil staff diakses menggunakan URL sementara.
-- Migration `202610260007_profile_photo.sql` menambahkan kolom foto profil, bucket, policy, dan fungsi pembaruan profil.
-- Migration `202610260008_leaderboard_avatars.sql` menampilkan foto profil pada ranking untuk pengguna yang sudah login.
-- Row Level Security: staff hanya membaca/mengubah laporannya sendiri; supervisor dapat membaca laporan seluruh tim.
-- Ranking bulanan tersedia untuk seluruh pengguna melalui fungsi database yang hanya mengembalikan nama dan total.
+## Struktur source
 
-Untuk revisi skema berikutnya, tambahkan file migration baru di `supabase/migrations` dan jangan mengubah migration yang sudah diterapkan pada database produksi.
+```text
+report-tbr/
+├── index.html
+├── styles.css
+├── config.js
+├── server.js
+├── build.js
+├── package.json
+├── assets/
+├── js/
+│   ├── main.js                    # bootstrap, routing, dan event controller
+│   ├── core/
+│   │   └── core.js                # konstanta, state, dan fungsi murni
+│   ├── services/
+│   │   └── services.js            # Supabase, storage, RPC, dan ekspor
+│   ├── views/
+│   │   └── views.js               # rendering halaman dan komponen
+│   └── pages/
+│       ├── admin.js               # perilaku panel Admin
+│       └── kpi-supervisor.js      # perhitungan dan tampilan KPI Supervisor
+├── scripts/
+│   └── check.js
+├── tests/
+│   └── core.test.js
+└── supabase/
+    └── migrations/
+```
+
+Modul browser menggunakan satu namespace `window.TBR` untuk menghindari kumpulan variabel global terpisah. Urutan script di `index.html` penting: core, services, views, page modules, lalu main.
+
+## Batas tanggung jawab
+
+- `core.js`: katalog produk, metadata halaman, state aplikasi, pemformatan tanggal, normalisasi data, perhitungan periode, dan filter murni.
+- `services.js`: satu-satunya tempat akses Supabase, bucket Storage, RPC, serta pembuatan file Excel.
+- `views.js`: mengubah state menjadi DOM tanpa menjalankan query database.
+- `admin.js` dan `kpi-supervisor.js`: logika khusus halaman yang tidak membebani controller utama.
+- `main.js`: menghubungkan form, event, routing, session, services, dan views.
+
+## Supabase
+
+Jalankan migration dalam `supabase/migrations` secara berurutan untuk project baru. Migration yang sudah diterapkan tidak boleh diedit; perubahan skema berikutnya harus dibuat sebagai migration baru.
+
+Data utama:
+
+- `profiles`: nama, NIP, area, role, dan referensi foto profil.
+- `closings`: closing per pengguna dan tanggal.
+- `visits`: dokumentasi kunjungan dan referensi foto.
+- bucket `visit-photos` dan `profile-photos`: penyimpanan foto private sesuai policy yang tersedia.
+
+Autentikasi tetap memakai NIP yang dipetakan ke email internal untuk Supabase Auth. Role Staff, Supervisor, dan Admin serta seluruh RLS/RPC mengikuti migration yang sudah ada.
+
+## Build dan deployment
+
+`build.js` adalah manifest source deployment. Jika modul atau aset lokal baru ditambahkan ke `index.html`, tambahkan juga file tersebut ke manifest `assets` di `build.js`. Jangan mengedit `dist` secara manual.

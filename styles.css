@@ -124,6 +124,10 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
 
 /* Keep the visual KPI cards compact and legible in the two-column phone layout. */
 .staff-kpi-card .staff-kpi-percent{font-weight:500}
+.staff-kpi-card .progress{margin-bottom:12px}
+.staff-kpi-card .staff-kpi-footer{padding-top:2px}
+.kpi-cell .progress{margin-bottom:6px}
+.kpi-table td>.kpi-status{margin-top:3px}
 @media(max-width:680px){
   .staff-kpi-card{display:block;min-height:132px;padding:16px 12px 12px}
   .staff-kpi-icon{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:11px;opacity:.22;box-shadow:none}
@@ -369,7 +373,7 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
 /* Keep the visual KPI cards compact and legible in the two-column phone layout. */
 .staff-kpi-card .staff-kpi-percent{font-weight:500}
 @media(max-width:680px){
-  .staff-kpi-card{display:block;min-height:132px;padding:12px}
+  .staff-kpi-card{--staff-kpi-content-offset:8px;display:block;min-height:132px;padding:calc(12px + var(--staff-kpi-content-offset)) 12px 12px}
   .staff-kpi-icon{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:11px;opacity:.22;box-shadow:none}
   .staff-kpi-icon svg{width:21px;height:21px}
   .staff-kpi-card .staff-kpi-content{width:100%}

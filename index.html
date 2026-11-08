@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -6,14 +6,14 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="app-version" content="20261108-19">
+  <meta name="app-version" content="20261108-21">
   <meta name="theme-color" content="#0f766e">
   <title>TBR Performance</title>
   <link rel="icon" href="assets/bsi-mark.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261108-19">
+  <link rel="stylesheet" href="styles.css?v=20261108-21">
 </head>
 <body>
   <section id="authScreen" class="auth-screen">
@@ -70,7 +70,7 @@
           <p id="pageSubtitle">Pantau aktivitas dan pencapaian hari ini.</p>
         </div>
         <div class="topbar-actions">
-          <label class="month-filter">Periode
+          <label class="month-filter"><span class="month-filter-icon" aria-hidden="true"><img src="assets/calendar-check.png" alt=""></span><span class="month-filter-label">Periode</span>
             <input id="monthFilter" type="month" aria-label="Filter bulan laporan">
           </label>
           <div class="profile">
@@ -88,19 +88,19 @@
             <span class="hero-label">Performa <span id="dashboardRoleLabel">TBR Staff</span></span>
             <h3 class="hero-name" id="dashboardName">Nama Staff</h3>
             <h2><span id="heroTotal">32</span> <small>closing</small></h2>
-            <p><span data-current-month></span> · performa pribadi</p>
+            <p><span data-current-month></span> &middot; performa pribadi</p>
           </div>
           <div class="rank-card"><span>Ranking area</span><strong id="heroRank">#1</strong><small>dari <span id="heroStaffCount">0</span> staff</small></div>
+        </div>
+        <div class="section-heading"><div><h2>Akses cepat</h2></div></div>
+        <div class="quick-actions">
+          <button data-route="closing"><span class="quick-action-icon closing-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Input closing</strong><small>Catat pencapaian baru</small></div><b>&rarr;</b></button>
+          <button data-route="visits"><span class="quick-action-icon visit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/><circle cx="12" cy="13" r="3"/></svg></span><div><strong>Tambahkan foto kunjungan</strong><small>Dokumentasikan aktivitas lapangan</small></div><b>&rarr;</b></button>
         </div>
         <section id="staffKpiSection" class="staff-kpi section-gap" aria-labelledby="staffKpiTitle">
           <div class="section-heading split kpi-section-heading"><div><p class="eyebrow">Target pribadi</p><h2 id="staffKpiTitle">My Achievement</h2><p>Realisasi akuisisi untuk periode yang dipilih.</p></div><div id="staffKpiTotal" class="staff-kpi-total" aria-label="Persentase pencapaian KPI"></div></div>
           <div id="staffKpiCards" class="staff-kpi-grid" aria-label="Pencapaian KPI pribadi"></div>
         </section>
-        <div class="section-heading"><div><h2>Akses cepat</h2></div></div>
-        <div class="quick-actions">
-          <button data-route="closing"><span class="quick-action-icon closing-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Input closing</strong><small>Catat pencapaian baru</small></div><b>→</b></button>
-          <button data-route="visits"><span class="quick-action-icon visit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/><circle cx="12" cy="13" r="3"/></svg></span><div><strong>Tambahkan foto kunjungan</strong><small>Dokumentasikan aktivitas lapangan</small></div><b>→</b></button>
-        </div>
         <article class="card performance-card section-gap">
           <div class="card-head"><div><p class="eyebrow">Learning overview</p><h2>Performa kinerja staf</h2></div><select id="staffChartSelect" class="chart-select" aria-label="Pilih staf"></select></div>
           <div class="chart-legend"><span><i></i>Closing</span></div>
@@ -108,11 +108,11 @@
         </article>
         <div class="content-grid section-gap">
           <article class="card">
-            <div class="card-head"><h2>Aktivitas Terbaru</h2><button class="text-button" data-route="history">Lihat riwayat →</button></div>
+            <div class="card-head"><h2>Aktivitas Terbaru</h2><button class="text-button" data-route="history">Lihat riwayat &rarr;</button></div>
             <div id="recentList"></div>
           </article>
           <article class="card">
-            <div class="card-head"><h2>Top 3 Staff</h2><button class="text-button" data-route="ranking">Ranking →</button></div>
+            <div class="card-head"><h2>Top 3 Staff</h2><button class="text-button" data-route="ranking">Ranking &rarr;</button></div>
             <div id="topList"></div>
           </article>
         </div>
@@ -158,20 +158,20 @@
           <div class="history-profile-copy">
             <p class="eyebrow">Profil staff</p>
             <h2 id="historyProfileName">Nama Staff</h2>
-            <p><span id="historyProfileNip">NIP</span> · <span id="historyProfileRole">TBR Staff</span></p>
+            <p><span id="historyProfileNip">NIP</span> &middot; <span id="historyProfileRole">TBR Staff</span></p>
           </div>
           <label class="button secondary profile-upload-button">Ganti foto<input id="profilePhoto" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" hidden></label>
           <p id="profilePhotoMessage" class="message profile-photo-message" hidden></p>
         </article>
         <article class="card">
-          <div class="card-head history-head"><div><p class="eyebrow">Data laporan</p><h2>Riwayat closing</h2></div><input id="historySearch" class="search" placeholder="Cari produk atau merchant…"></div>
+          <div class="card-head history-head"><div><p class="eyebrow">Data laporan</p><h2>Riwayat closing</h2></div><input id="historySearch" class="search" placeholder="Cari produk atau merchant&hellip;"></div>
           <div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Produk</th><th>Aktivitas</th><th>Jumlah</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="historyTable"></tbody></table></div>
           <p id="historyMessage" class="message" hidden></p>
         </article>
       </section>
 
       <section id="supervisor" class="page">
-        <div class="hero hero-clickable" data-open="teamClosingDetail" role="button" tabindex="0" aria-label="Lihat rincian closing masing-masing TBR"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> · <span id="activeStaff">0</span> staff aktif</p></div></div>
+        <div class="hero hero-clickable" data-open="teamClosingDetail" role="button" tabindex="0" aria-label="Lihat rincian closing masing-masing TBR"><div><span class="hero-label">Performa seluruh tim</span><h2><span id="teamTotal">0</span> <small>closing</small></h2><p><span data-current-month></span> &middot; <span id="activeStaff">0</span> staff aktif</p></div></div>
         <div class="metrics"><article class="card metric simple"><div><p>Staf yang sudah melapor hari ini</p><strong id="reportingStaff">0</strong><small id="reportingStaffNames">Belum ada staf yang melapor hari ini.</small></div></article></div>
         <section class="kpi-supervisor section-gap" aria-labelledby="supervisorKpiTitle">
           <div class="section-heading split kpi-section-heading"><div><p class="eyebrow">Monitoring target</p><h2 id="supervisorKpiTitle">Pencapaian KPI per TBR Staff</h2><p>Realisasi akuisisi dibandingkan target bulanan setiap staf.</p></div></div>
@@ -187,14 +187,14 @@
       </section>
 
       <section id="admin" class="page">
-        <div class="hero"><div><span class="hero-label">Pusat administrasi · <span id="adminName">Admin</span></span><h2>Manajemen User TBR</h2><p>Pantau akun TBR Staff dan TBR Supervisor dalam satu dashboard.</p></div><div class="rank-card"><span>User aktif</span><strong id="adminActiveUsers">0</strong><small>akun terdaftar</small></div></div>
+        <div class="hero"><div><span class="hero-label">Pusat administrasi &middot; <span id="adminName">Admin</span></span><h2>Manajemen User TBR</h2><p>Pantau akun TBR Staff dan TBR Supervisor dalam satu dashboard.</p></div><div class="rank-card"><span>User aktif</span><strong id="adminActiveUsers">0</strong><small>akun terdaftar</small></div></div>
         <div class="metrics"><article class="card metric simple"><div><p>Total user</p><strong id="adminTotalUsers">0</strong><small>akun terdaftar</small></div></article><article class="card metric simple"><div><p>TBR Staff</p><strong id="adminStaffCount">0</strong><small>akun aktif</small></div></article><article class="card metric simple"><div><p>TBR Supervisor</p><strong id="adminSupervisorCount">0</strong><small>akses monitoring</small></div></article></div>
         <div class="section-heading"><div><p class="eyebrow">Direktori user</p><h2>Daftar akun TBR</h2><p>TBR Supervisor aktif otomatis saat pendaftaran, tanpa proses approval.</p></div></div>
         <article class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nama</th><th>NIP</th><th>Role aktif</th><th>Status</th></tr></thead><tbody id="adminUsersTable"></tbody></table></div></article>
       </section>
 
       <section id="adminApproval" class="page">
-        <div class="hero"><div><span class="hero-label">Administrasi TBR · Approval role</span><h2>Approval TBR SPV</h2><p>Periksa dan setujui user yang mengajukan akses supervisor.</p></div><div class="rank-card"><span>Menunggu approval</span><strong id="adminApprovalCount">0</strong><small>permintaan SPV</small></div></div>
+        <div class="hero"><div><span class="hero-label">Administrasi TBR &middot; Approval role</span><h2>Approval TBR SPV</h2><p>Periksa dan setujui user yang mengajukan akses supervisor.</p></div><div class="rank-card"><span>Menunggu approval</span><strong id="adminApprovalCount">0</strong><small>permintaan SPV</small></div></div>
         <div class="section-heading"><div><p class="eyebrow">Permintaan akses</p><h2>Approval role TBR SPV</h2><p>Role user berubah menjadi TBR Supervisor setelah disetujui.</p></div></div>
         <article class="card table-card"><div class="table-wrap"><table><thead><tr><th>Nama</th><th>NIP</th><th>Role aktif</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="adminApprovalTable"></tbody></table></div></article>
       </section>
@@ -203,7 +203,7 @@
   <div id="closingDetail" class="modal" hidden>
     <div class="modal-backdrop" data-close="closingDetail"></div>
     <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
-      <button class="modal-close" data-close="closingDetail" aria-label="Tutup">×</button>
+      <button class="modal-close" data-close="closingDetail" aria-label="Tutup">&times;</button>
       <p class="eyebrow" data-current-month></p><h2 id="detailTitle">Pembukaan baru per produk</h2><p class="modal-subtitle">Total unit produk khusus pembukaan baru</p>
       <div id="closingBars" class="closing-bars"></div>
     </section>
@@ -212,7 +212,7 @@
   <div id="staffClosingDetail" class="modal" hidden>
     <div class="modal-backdrop" data-close="staffClosingDetail"></div>
     <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="staffClosingTitle">
-      <button class="modal-close" data-close="staffClosingDetail" aria-label="Tutup">×</button>
+      <button class="modal-close" data-close="staffClosingDetail" aria-label="Tutup">&times;</button>
       <p class="eyebrow" data-current-month></p><h2 id="staffClosingTitle">Closing staff</h2><p id="staffClosingSubtitle" class="modal-subtitle"></p>
       <div id="staffClosingRows" class="closing-bars"></div>
     </section>
@@ -221,7 +221,7 @@
   <div id="teamClosingDetail" class="modal" hidden>
     <div class="modal-backdrop" data-close="teamClosingDetail"></div>
     <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="teamClosingTitle">
-      <button class="modal-close" data-close="teamClosingDetail" aria-label="Tutup">×</button>
+      <button class="modal-close" data-close="teamClosingDetail" aria-label="Tutup">&times;</button>
       <p class="eyebrow" data-current-month></p><h2 id="teamClosingTitle">Closing masing-masing TBR</h2><p class="modal-subtitle">Ringkasan closing setiap staff pada bulan ini.</p>
       <div id="teamClosingRows" class="team-closing-rows"></div>
     </section>
@@ -230,7 +230,7 @@
   <div id="supervisorKpiDetail" class="modal" hidden>
     <div class="modal-backdrop" data-close="supervisorKpiDetail"></div>
     <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="supervisorKpiDetailTitle">
-      <button class="modal-close" data-close="supervisorKpiDetail" aria-label="Tutup">×</button>
+      <button class="modal-close" data-close="supervisorKpiDetail" aria-label="Tutup">&times;</button>
       <p class="eyebrow" data-current-month></p><h2 id="supervisorKpiDetailTitle">KPI TBR Staff</h2><p id="supervisorKpiDetailSubtitle" class="modal-subtitle"></p>
       <div id="supervisorKpiDetailRows" class="kpi-detail-rows"></div>
     </section>
@@ -238,7 +238,7 @@
   <div id="photoLightbox" class="photo-lightbox" hidden>
     <div class="photo-lightbox-backdrop" data-close="photoLightbox"></div>
     <section class="photo-lightbox-panel" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
-      <button class="photo-lightbox-close" type="button" data-close="photoLightbox" aria-label="Tutup">×</button>
+      <button class="photo-lightbox-close" type="button" data-close="photoLightbox" aria-label="Tutup">&times;</button>
       <img id="photoLightboxImage" alt="Pratinjau foto">
     </section>
   </div>

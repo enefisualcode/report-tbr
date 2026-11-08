@@ -14,6 +14,7 @@ const assets = [
   'js/pages/kpi-supervisor.js',
   'js/main.js',
   'assets/bsi-mark.png'
+  ,'assets/calendar-check.png'
 ];
 
 fs.rmSync(dist, { recursive: true, force: true });

@@ -13,9 +13,7 @@ const assets = [
   'js/pages/admin.js',
   'js/pages/kpi-supervisor.js',
   'js/main.js',
-  'assets/bsi-mark.png',
-  'assets/demo-profile.png',
-  'assets/demo-visit.png'
+  'assets/bsi-mark.png'
 ];
 
 fs.rmSync(dist, { recursive: true, force: true });

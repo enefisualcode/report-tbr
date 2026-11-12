@@ -142,11 +142,21 @@
     const path = `${userId}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
     const upload = await requireClient().storage.from('visit-photos').upload(path, file, { contentType: file.type, upsert: false });
     if (upload.error) throw new Error(`Gagal mengunggah foto: ${upload.error.message}`);
-    const insert = await client.from('visits').insert({ user_id: userId, visit_date: date, notes: notes || 'Dokumentasi aktivitas lapangan', photo_path: path });
+    const insert = await client.from('visits').insert({ user_id: userId, visit_date: date, notes: notes || 'Dokumentasi aktivitas lapangan', photo_path: path }).select('id,user_id,visit_date,notes,photo_path').single();
     if (insert.error) {
       await client.storage.from('visit-photos').remove([path]);
       throw new Error(`Gagal menyimpan dokumentasi: ${insert.error.message}`);
     }
+    const signed = await client.storage.from('visit-photos').createSignedUrl(path, 3600);
+    return {
+      id: insert.data.id,
+      userId: insert.data.user_id,
+      rawDate: insert.data.visit_date,
+      date: utils.formatDate(insert.data.visit_date),
+      note: insert.data.notes,
+      photoPath: path,
+      photo: signed.data?.signedUrl || global.URL.createObjectURL(file)
+    };
   }
   async function deleteVisit(id, photoPath) {
     const result = await requireClient().rpc('delete_my_visit_v2', { target_id: id });

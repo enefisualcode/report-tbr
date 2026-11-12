@@ -297,11 +297,23 @@
     byId('visitForm').addEventListener('submit', async event => {
       event.preventDefault();
       if (store.state.role === 'supervisor') return views.showMessage(byId('visitMessage'), 'Akun supervisor hanya dapat memonitor data staff.', true);
+      const form = event.currentTarget;
       const file = byId('visitPhoto').files[0];
       if (!file) return views.showMessage(byId('visitMessage'), 'Foto dokumentasi wajib diunggah sebelum disimpan.', true);
-      const button = event.currentTarget.querySelector('button[type="submit"]');
+      const button = form?.querySelector('button[type="submit"]');
+      const date = byId('visitDate').value;
+      const notes = byId('visitNotes').value;
+      if (!form || !button) return views.showMessage(byId('visitMessage'), 'Form dokumentasi tidak tersedia. Silakan muat ulang halaman.', true);
       button.disabled = true;
-      try { await services.createVisit(store.currentUser.id, byId('visitDate').value, byId('visitNotes').value, file); event.currentTarget.reset(); byId('visitDate').value = utils.isoToday(); views.showMessage(byId('visitMessage'), 'Dokumentasi dan foto berhasil disimpan.'); await loadMonth(store.state.month); }
+      try {
+        const visit = await services.createVisit(store.currentUser.id, date, notes, file);
+        store.visits.unshift({ ...visit, staffName: store.profile?.full_name || '' });
+        form.reset();
+        byId('visitDate').value = utils.isoToday();
+        views.render();
+        views.showMessage(byId('visitMessage'), 'Dokumentasi dan foto berhasil disimpan.');
+        loadMonth(store.state.month).catch(error => console.warn('Penyegaran galeri gagal:', error));
+      }
       catch (error) { views.showMessage(byId('visitMessage'), error.message, true); }
       finally { button.disabled = false; }
     });

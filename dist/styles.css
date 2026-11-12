@@ -236,6 +236,14 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
   #closingFields .tabungan-field input{padding:11px 9px}
 }
 
+/* Safari iOS merender nilai input bulan sedikit terlalu tinggi bila padding vertikal nol. */
+@supports (-webkit-touch-callout:none){
+  @media(max-width:680px){
+    .month-filter input[type="month"]{padding:10px 9px 8px;line-height:20px}
+    .month-filter input[type="month"]::-webkit-date-and-time-value{min-height:20px;text-align:center}
+  }
+}
+
 /* Date controls in the export card must stay inside their grid column on phones. */
 @media(max-width:680px){.export-form{column-gap:16px}.export-form input[type="date"]{display:block;width:100%;min-width:0;max-width:100%;padding:10px 8px;font-size:14px!important}}
 

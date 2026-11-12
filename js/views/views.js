@@ -72,11 +72,13 @@
     byId('formTitle').textContent = `Detail ${product.name}`;
     const fieldMarkup = product.fields.map((field, index) => {
       const [label, type, options] = field;
-      const optional = product.id === 'tabungan' && ['Nomor rekening', 'Nama nasabah'].includes(label);
+      const optional = (product.id === 'tabungan' && ['Nomor rekening', 'Nama nasabah'].includes(label))
+        || ((product.id === 'qris' || product.id === 'agen') && index === 0);
       const className = product.id === 'tabungan' ? 'tabungan-field' : label.startsWith('Nama') ? 'wide' : '';
       if (product.id === 'cicil' && index === 0) return '';
-      if (type === 'select') return `<label class="${className}">${label}<select name="f${index}" required><option value="">Pilih opsi</option>${options.map(value => `<option>${value}</option>`).join('')}</select></label>`;
-      return `<label class="${className}">${label}<input name="f${index}" type="${type}" ${type === 'number' ? 'min="0" step="any"' : ''} placeholder="${options}" ${optional ? '' : 'required'}></label>`;
+      const labelText = optional ? `${label} (opsional)` : label;
+      if (type === 'select') return `<label class="${className}">${labelText}<select name="f${index}" required><option value="">Pilih opsi</option>${options.map(value => `<option>${value}</option>`).join('')}</select></label>`;
+      return `<label class="${className}">${labelText}<input name="f${index}" type="${type}" ${type === 'number' ? 'min="0" step="any"' : ''} placeholder="${options}" ${optional ? '' : 'required'}></label>`;
     }).join('');
     const baseClass = product.id === 'cicil' ? 'wide' : '';
     byId('closingFields').innerHTML = `<label class="${baseClass}">Tanggal closing<input name="date" type="date" value="${utils.isoToday()}" required></label><label class="${baseClass}">Jumlah closing<input name="qty" type="number" min="1" max="100" value="1" required></label>${fieldMarkup}<label class="wide">Keterangan tambahan<textarea name="notes" placeholder="Catatan opsional"></textarea></label>`;

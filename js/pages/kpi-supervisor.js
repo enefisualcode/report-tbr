@@ -9,10 +9,15 @@
     { key: 'edc', name: 'EDC', target: 3, matches: row => row.product === 'EDC' && /pemasangan baru/i.test(row.activity || row.detail || '') },
     { key: 'cif', name: 'New CIF', target: 50, matches: row => row.product === 'Tabungan' && /new cif/i.test(row.activity || row.detail || '') }
   ];
-  const targetPerStaff = definitions.reduce((sum, definition) => sum + definition.target, 0);
   const filters = { search: '', status: 'all' };
   const percent = (actual, target) => Math.round(actual / target * 100);
   const width = (actual, target) => Math.min(100, percent(actual, target));
+  function targetMultiplier() {
+    if (store.state.periodScope !== 'all') return 1;
+    const years = new Set(store.records.map(record => String(record.rawDate || record.date || '').slice(0, 4)).filter(year => /^\d{4}$/.test(year)));
+    return Math.max(1, years.size) * 12;
+  }
+  function targetFor(definition) { return definition.target * targetMultiplier(); }
 
   function statusFor(row) {
     if (!row.actual) return { key: 'not-started', label: 'Belum ada capaian' };
@@ -22,9 +27,10 @@
   function rows() {
     return store.ranking.map(staff => {
       const records = store.records.filter(record => record.userId === staff.userId);
-      const items = definitions.map(definition => ({ ...definition, actual: records.filter(definition.matches).reduce((sum, record) => sum + Number(record.qty || 0), 0) }));
+      const items = definitions.map(definition => ({ ...definition, target: targetFor(definition), actual: records.filter(definition.matches).reduce((sum, record) => sum + Number(record.qty || 0), 0) }));
       const actual = items.reduce((sum, item) => sum + item.actual, 0);
-      return { id: staff.userId, name: staff.name, items, actual, target: targetPerStaff, percentage: percent(actual, targetPerStaff) };
+      const target = items.reduce((sum, item) => sum + item.target, 0);
+      return { id: staff.userId, name: staff.name, items, actual, target, percentage: percent(actual, target) };
     }).sort((left, right) => left.percentage - right.percentage || left.name.localeCompare(right.name, 'id'));
   }
   function cell(item) {
@@ -32,9 +38,10 @@
   }
   function staffRow() {
     const records = store.records.filter(record => record.userId === store.currentUser?.id);
-    const items = definitions.map(definition => ({ ...definition, actual: records.filter(definition.matches).reduce((sum, record) => sum + Number(record.qty || 0), 0) }));
+    const items = definitions.map(definition => ({ ...definition, target: targetFor(definition), actual: records.filter(definition.matches).reduce((sum, record) => sum + Number(record.qty || 0), 0) }));
     const actual = items.reduce((sum, item) => sum + item.actual, 0);
-    return { items, actual, target: targetPerStaff, percentage: percent(actual, targetPerStaff) };
+    const target = items.reduce((sum, item) => sum + item.target, 0);
+    return { items, actual, target, percentage: percent(actual, target) };
   }
   function productIcon(key) {
     const icons = {
@@ -66,7 +73,7 @@
   function render() {
     if (store.state.role !== 'supervisor') return;
     const allRows = rows();
-    const teamTarget = allRows.length * targetPerStaff;
+    const teamTarget = allRows.reduce((sum, row) => sum + row.target, 0);
     const teamActual = allRows.reduce((sum, row) => sum + row.actual, 0);
     const average = teamTarget ? percent(teamActual, teamTarget) : 0;
     const allTarget = allRows.filter(row => statusFor(row).key === 'achieved').length;

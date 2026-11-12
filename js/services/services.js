@@ -79,6 +79,23 @@
     const records = (closingResult.data || []).map(row => utils.normalizeClosing(row, names.get(row.user_id) || '', role === 'supervisor'));
     return { records, visits: visits.map(visit => ({ ...visit, staffName: names.get(visit.userId) || '' })), ranking };
   }
+  async function fetchAllTimeData(userId, profile, role) {
+    const [closingResult, visitResult, leaderboardResult] = await Promise.all([
+      requireClient().from('closings').select('id,user_id,closing_date,product,activity,quantity,notes,created_at').order('created_at', { ascending: false }).order('closing_date', { ascending: false }),
+      requireClient().from('visits').select('id,user_id,visit_date,notes,photo_path').order('visit_date', { ascending: false }).limit(100),
+      client.rpc('period_leaderboard', { period_start: '2000-01-01', period_end: utils.isoToday() })
+    ]);
+    if (closingResult.error) throw closingResult.error;
+    if (visitResult.error) throw visitResult.error;
+    if (leaderboardResult.error) throw leaderboardResult.error;
+    const [visits, ranking] = await Promise.all([
+      hydrateVisits(visitResult.data || []),
+      hydrateRankings(leaderboardResult.data || [], userId, profile)
+    ]);
+    const names = new Map(ranking.map(row => [row.userId, row.name]));
+    const records = (closingResult.data || []).map(row => utils.normalizeClosing(row, names.get(row.user_id) || '', role === 'supervisor'));
+    return { records, visits: visits.map(visit => ({ ...visit, staffName: names.get(visit.userId) || '' })), ranking };
+  }
   async function fetchRankingPeriod(start, end) {
     const result = await requireClient().rpc('period_leaderboard', { period_start: start, period_end: end });
     if (result.error) throw result.error;
@@ -226,5 +243,5 @@
 
   app.client = client;
   app.configured = configured;
-  app.services = { fetchOwnProfile, signedAvatar, fetchMonthData, fetchRankingPeriod, fetchStaffBreakdown, closingPayload, createClosing, getClosing, updateClosing, deleteClosing, createVisit, deleteVisit, updateAvatar, fetchAdminUsers, approveSupervisor, exportSupervisorData };
+  app.services = { fetchOwnProfile, signedAvatar, fetchMonthData, fetchAllTimeData, fetchRankingPeriod, fetchStaffBreakdown, closingPayload, createClosing, getClosing, updateClosing, deleteClosing, createVisit, deleteVisit, updateAvatar, fetchAdminUsers, approveSupervisor, exportSupervisorData };
 })(window);

@@ -224,8 +224,11 @@
     byId('supervisorStaffSelect').innerHTML = (store.state.role === 'supervisor' ? `<option value="all" ${store.state.chartStaff === 'all' ? 'selected' : ''}>Semua staff</option>` : '') + options.map(row => `<option value="${row.userId}" ${row.userId === store.state.chartStaff ? 'selected' : ''}>${escape(row.name)}</option>`).join('');
   }
   function updatePeriodLabels() {
+    const allTime = store.state.periodScope === 'all';
+    byId('periodScope').value = allTime ? 'all' : 'month';
     byId('monthFilter').value = store.state.month;
-    document.querySelectorAll('[data-current-month]').forEach(element => { element.textContent = utils.formatMonth(store.state.month); });
+    byId('monthFilter').hidden = allTime;
+    document.querySelectorAll('[data-current-month]').forEach(element => { element.textContent = allTime ? 'All time' : utils.formatMonth(store.state.month); });
   }
   function render() {
     document.body.classList.toggle('supervisor-mode', store.state.role === 'supervisor');

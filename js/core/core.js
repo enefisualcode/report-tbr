@@ -97,7 +97,7 @@
   }
 
   const store = {
-    state: { role: 'staff', page: 'dashboard', product: 'qris', chartStaff: '', month: currentMonth(), rankingPeriod: 'monthly' },
+    state: { role: 'staff', page: 'dashboard', product: 'qris', chartStaff: '', month: currentMonth(), periodScope: 'month', rankingPeriod: 'monthly' },
     currentUser: null,
     profile: null,
     records: [],

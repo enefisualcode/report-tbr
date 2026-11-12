@@ -52,14 +52,16 @@
     section.hidden = !visible;
     if (!visible) return;
     const row = staffRow();
-    views.byId('staffKpiTotal').innerHTML = `<div class="staff-kpi-total-bar" aria-hidden="true"><i style="width:${Math.min(100, row.percentage)}%"></i></div><strong>${row.percentage}%</strong>`;
+    const allTime = store.state.periodScope === 'all';
+    views.byId('staffKpiTotal').innerHTML = allTime ? `<strong>${row.actual} NOA</strong>` : `<div class="staff-kpi-total-bar" aria-hidden="true"><i style="width:${Math.min(100, row.percentage)}%"></i></div><strong>${row.percentage}%</strong>`;
     const visualItems = [row.items.find(item => item.key === 'qris'), row.items.find(item => item.key === 'agen'), row.items.find(item => item.key === 'edc'), row.items.find(item => item.key === 'cif')].filter(Boolean);
-    const highestPercentage = Math.max(...visualItems.map(item => percent(item.actual, item.target)));
+    const highestValue = Math.max(...visualItems.map(item => allTime ? item.actual : percent(item.actual, item.target)));
     views.byId('staffKpiCards').innerHTML = visualItems.map(item => {
       const achieved = item.actual >= item.target;
       const status = !item.actual ? { key: 'not-started', label: 'Belum mulai' } : achieved ? { key: 'achieved', label: 'Target tercapai' } : { key: 'attention', label: `${item.target - item.actual} NOA lagi` };
-      const isBest = item.actual > 0 && percent(item.actual, item.target) === highestPercentage;
-      return `<article class="staff-kpi-card staff-kpi-${item.key}" data-kpi-product="${item.key}" role="button" tabindex="0" aria-label="Lihat detail closing ${item.name}"><span class="staff-kpi-icon">${productIcon(item.key)}</span><div class="staff-kpi-content"><div class="staff-kpi-card-head"><small class="staff-kpi-name">${item.name}</small>${isBest ? '<span class="staff-kpi-best">♛ Terbaik</span>' : ''}</div><div class="staff-kpi-result"><strong class="staff-kpi-percent">${percent(item.actual, item.target)}%</strong><span class="kpi-status ${status.key}">${status.label}</span></div><div class="progress"><span style="width:${width(item.actual, item.target)}%"></span></div><div class="staff-kpi-footer"><small>Target: ${item.target} NOA</small><small>Tercapai: ${item.actual} NOA</small></div></div></article>`;
+      const isBest = item.actual > 0 && (allTime ? item.actual : percent(item.actual, item.target)) === highestValue;
+      const result = allTime ? `<div class="staff-kpi-result"><strong class="staff-kpi-percent">${item.actual} <small>NOA</small></strong></div>` : `<div class="staff-kpi-result"><strong class="staff-kpi-percent">${percent(item.actual, item.target)}%</strong><span class="kpi-status ${status.key}">${status.label}</span></div><div class="progress"><span style="width:${width(item.actual, item.target)}%"></span></div><div class="staff-kpi-footer"><small>Target: ${item.target} NOA</small><small>Tercapai: ${item.actual} NOA</small></div>`;
+      return `<article class="staff-kpi-card staff-kpi-${item.key}" data-kpi-product="${item.key}" role="button" tabindex="0" aria-label="Lihat detail closing ${item.name}"><span class="staff-kpi-icon">${productIcon(item.key)}</span><div class="staff-kpi-content"><div class="staff-kpi-card-head"><small class="staff-kpi-name">${item.name}</small>${isBest ? '<span class="staff-kpi-best">♛ Terbaik</span>' : ''}</div>${result}</div></article>`;
     }).join('');
   }
   function render() {

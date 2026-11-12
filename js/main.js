@@ -14,9 +14,24 @@
   }
   async function loadMonth(month, initialLoad = false) {
     store.state.month = month;
+    store.state.periodScope = 'month';
     document.body.classList.add('loading');
     try {
       const data = await services.fetchMonthData(month, store.currentUser.id, store.profile, store.state.role, initialLoad);
+      store.records = data.records;
+      store.visits = data.visits;
+      store.ranking = data.ranking;
+      store.periodRankingRows = null;
+      views.render();
+    } finally {
+      document.body.classList.remove('loading');
+    }
+  }
+  async function loadAllTime() {
+    store.state.periodScope = 'all';
+    document.body.classList.add('loading');
+    try {
+      const data = await services.fetchAllTimeData(store.currentUser.id, store.profile, store.state.role);
       store.records = data.records;
       store.visits = data.visits;
       store.ranking = data.ranking;
@@ -276,6 +291,7 @@
     byId('productSelect').addEventListener('change', event => { store.state.product = event.target.value; views.renderProductForm(); });
     byId('staffChartSelect').addEventListener('change', event => { store.state.chartStaff = event.target.value; views.renderChart('staffChart', store.state.chartStaff); views.renderChart('supervisorStaffChart', store.state.chartStaff); views.renderDistribution(); byId('supervisorStaffSelect').value = store.state.chartStaff; });
     byId('supervisorStaffSelect').addEventListener('change', event => { store.state.chartStaff = event.target.value; views.renderChart('staffChart', store.state.chartStaff); views.renderChart('supervisorStaffChart', store.state.chartStaff); views.renderDistribution(); byId('staffChartSelect').value = store.state.chartStaff; });
+    byId('periodScope').addEventListener('change', async event => { event.target.disabled = true; try { if (event.target.value === 'all') await loadAllTime(); else await loadMonth(store.state.month); } catch (error) { views.showMessage(byId('loginMessage'), `Gagal memuat periode: ${error.message}`, true); } finally { event.target.disabled = false; } });
     byId('monthFilter').addEventListener('change', async event => { if (!event.target.value) return; event.target.disabled = true; try { await loadMonth(event.target.value); } catch (error) { views.showMessage(byId('loginMessage'), `Gagal memuat periode: ${error.message}`, true); } finally { event.target.disabled = false; } });
     byId('closingForm').addEventListener('submit', async event => {
       event.preventDefault();

@@ -59,7 +59,7 @@
       const achieved = item.actual >= item.target;
       const status = !item.actual ? { key: 'not-started', label: 'Belum mulai' } : achieved ? { key: 'achieved', label: 'Target tercapai' } : { key: 'attention', label: `${item.target - item.actual} NOA lagi` };
       const isBest = item.actual > 0 && percent(item.actual, item.target) === highestPercentage;
-      return `<article class="staff-kpi-card staff-kpi-${item.key}"><span class="staff-kpi-icon">${productIcon(item.key)}</span><div class="staff-kpi-content"><div class="staff-kpi-card-head"><small class="staff-kpi-name">${item.name}</small>${isBest ? '<span class="staff-kpi-best">♛ Terbaik</span>' : ''}</div><div class="staff-kpi-result"><strong class="staff-kpi-percent">${percent(item.actual, item.target)}%</strong><span class="kpi-status ${status.key}">${status.label}</span></div><div class="progress"><span style="width:${width(item.actual, item.target)}%"></span></div><div class="staff-kpi-footer"><small>Target: ${item.target} NOA</small><small>Tercapai: ${item.actual} NOA</small></div></div></article>`;
+      return `<article class="staff-kpi-card staff-kpi-${item.key}" data-kpi-product="${item.key}" role="button" tabindex="0" aria-label="Lihat detail closing ${item.name}"><span class="staff-kpi-icon">${productIcon(item.key)}</span><div class="staff-kpi-content"><div class="staff-kpi-card-head"><small class="staff-kpi-name">${item.name}</small>${isBest ? '<span class="staff-kpi-best">♛ Terbaik</span>' : ''}</div><div class="staff-kpi-result"><strong class="staff-kpi-percent">${percent(item.actual, item.target)}%</strong><span class="kpi-status ${status.key}">${status.label}</span></div><div class="progress"><span style="width:${width(item.actual, item.target)}%"></span></div><div class="staff-kpi-footer"><small>Target: ${item.target} NOA</small><small>Tercapai: ${item.actual} NOA</small></div></div></article>`;
     }).join('');
   }
   function render() {
@@ -90,5 +90,25 @@
     views.byId('supervisorKpiDetail').hidden = false;
   }
 
-  app.kpi = { render, renderStaff, setSearch, setStatus, open };
+  function closingName(record, key) {
+    const values = String(record.activity || '').split(' · ');
+    if (key === 'cif') return String(values[3] || '').trim();
+    const name = String(values[0] || '').trim();
+    return /^(registrasi baru|aktivasi|akuisisi baru|pemasangan baru)$/i.test(name) ? '' : name;
+  }
+
+  function openProduct(key) {
+    const definition = definitions.find(item => item.key === key);
+    if (!definition || !store.currentUser) return;
+    const names = [...new Set(store.records
+      .filter(record => record.userId === store.currentUser.id && definition.matches(record))
+      .map(record => closingName(record, key))
+      .filter(Boolean))];
+    views.byId('supervisorKpiDetailTitle').textContent = `Detail ${definition.name}`;
+    views.byId('supervisorKpiDetailSubtitle').textContent = `${names.length} closing dengan nama yang tercatat`;
+    views.byId('supervisorKpiDetailRows').innerHTML = names.map(name => `<article class="kpi-detail-row kpi-name-detail"><strong>${utils.escapeHtml(name)}</strong></article>`).join('') || '<p class="empty">Belum ada nama merchant atau nama nasabah yang tercatat.</p>';
+    views.byId('supervisorKpiDetail').hidden = false;
+  }
+
+  app.kpi = { render, renderStaff, setSearch, setStatus, open, openProduct };
 })(window);

@@ -191,6 +191,8 @@
     if (target.closest('#visitDeleteConfirm')) return confirmVisitDeletion();
     const kpi = target.closest('[data-kpi-staff]');
     if (kpi) return app.kpi.open(kpi.dataset.kpiStaff);
+    const kpiProduct = target.closest('[data-kpi-product]');
+    if (kpiProduct) return app.kpi.openProduct(kpiProduct.dataset.kpiProduct);
     const approve = target.closest('.approve-user');
     if (approve && store.state.role === 'admin') {
       approve.disabled = true;
@@ -340,7 +342,7 @@
     document.addEventListener('change', handleDocumentChange);
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') ['closingDetail', 'staffClosingDetail', 'teamClosingDetail', 'supervisorKpiDetail', 'photoLightbox', 'visitDeleteDialog'].forEach(closeModal);
-      if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[data-open],[data-staff-detail]')) event.target.click();
+      if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[data-open],[data-staff-detail],[data-kpi-product]')) event.target.click();
     });
     window.addEventListener('hashchange', () => { const target = location.hash.slice(1); if (PAGE_META[target]) { store.state.page = views.allowedPage(target); views.render(); } });
     let resizeFrame;

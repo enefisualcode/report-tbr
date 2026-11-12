@@ -210,10 +210,11 @@
     const baseline = 150;
     const step = (chartWidth - edge * 2) / Math.max(1, values.length - 1);
     const points = values.map((value, index) => ({ x: edge + index * step, y: baseline - value / max * 125 }));
-    const curve = points.reduce((path, point, index) => { if (!index) return `M ${point.x} ${point.y}`; const previous = points[index - 1]; const control = (previous.x + point.x) / 2; return `${path} C ${control} ${previous.y}, ${control} ${point.y}, ${point.x} ${point.y}`; }, '');
-    const area = `${curve} L ${points.at(-1).x} ${baseline} L ${points[0].x} ${baseline} Z`;
+    // Use direct line segments so each daily change stays visible instead of being softened by a spline curve.
+    const linePath = points.map((point, index) => `${index ? 'L' : 'M'} ${point.x} ${point.y}`).join(' ');
+    const area = `${linePath} L ${points.at(-1).x} ${baseline} L ${points[0].x} ${baseline} Z`;
     const gradientId = `${targetId}-gradient`;
-    target.innerHTML = `<div class="chart-y"><span>${max}</span><span>${Math.round(max * .75)}</span><span>${Math.round(max * .5)}</span><span>${Math.round(max * .25)}</span><span>0</span></div><svg style="--chart-color:${colors[colorIndex % colors.length]}" viewBox="0 0 ${chartWidth} 170" preserveAspectRatio="none"><defs><linearGradient id="${gradientId}" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="${colors[colorIndex % colors.length]}" stop-opacity=".34"/><stop offset="100%" stop-color="${colors[colorIndex % colors.length]}" stop-opacity=".02"/></linearGradient></defs><path class="chart-area" d="${area}" fill="url(#${gradientId})"/><path class="chart-line" d="${curve}"/></svg><div class="chart-x">${labels.map(label => `<span>${label}</span>`).join('')}</div>`;
+    target.innerHTML = `<div class="chart-y"><span>${max}</span><span>${Math.round(max * .75)}</span><span>${Math.round(max * .5)}</span><span>${Math.round(max * .25)}</span><span>0</span></div><svg style="--chart-color:${colors[colorIndex % colors.length]}" viewBox="0 0 ${chartWidth} 170" preserveAspectRatio="none"><defs><linearGradient id="${gradientId}" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="${colors[colorIndex % colors.length]}" stop-opacity=".34"/><stop offset="100%" stop-color="${colors[colorIndex % colors.length]}" stop-opacity=".02"/></linearGradient></defs><path class="chart-area" d="${area}" fill="url(#${gradientId})"/><path class="chart-line" d="${linePath}"/></svg><div class="chart-x">${labels.map(label => `<span>${label}</span>`).join('')}</div>`;
   }
   function renderStaffSelectors() {
     const options = store.state.role === 'supervisor' ? store.ranking : [{ userId: store.currentUser?.id, name: store.profile?.full_name || 'Saya' }];

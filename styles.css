@@ -110,6 +110,8 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
 .staff-kpi-card .staff-kpi-percent small{font-size:.42em;letter-spacing:0}
 
 @media(max-width:680px){
+  .topbar-actions .month-filter input,
+  .topbar-actions .month-filter select{font-size:12px!important}
   .topbar-actions .month-filter select{
     width:84px;
     min-width:84px;
@@ -117,7 +119,6 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
     min-height:44px;
     padding:0 7px;
     border-radius:14px;
-    font-size:11px!important;
   }
 }
 .export-card{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(420px,1.2fr);align-items:end;gap:22px}.export-card h2{margin:0;font-size:18px}.export-card>div:first-child>p:last-child{margin:5px 0 0;color:var(--muted);font-size:12px}.export-form{display:grid;grid-template-columns:1fr 1fr auto;align-items:end;gap:10px}.export-form label{color:#455a56;font-size:11px;font-weight:800}.export-form input{min-height:44px;margin-top:5px}.export-form .button{min-height:44px;white-space:nowrap}.export-card>.message{grid-column:1/-1;margin:0}

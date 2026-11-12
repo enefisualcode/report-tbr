@@ -242,7 +242,7 @@ input,select,textarea{border-color:#dfe7e5;border-radius:14px;background:#fbfcfc
 /* Safari iOS merender nilai input bulan sedikit terlalu tinggi bila padding vertikal nol. */
 @supports (-webkit-touch-callout:none){
   @media(max-width:680px){
-    .month-filter input[type="month"]{padding:10px 9px 8px;line-height:20px}
+    .month-filter input[type="month"]{-webkit-appearance:none;appearance:none;height:44px!important;min-height:44px!important;max-height:44px;padding:10px 9px 8px!important;line-height:20px;box-sizing:border-box}
     .month-filter input[type="month"]::-webkit-date-and-time-value{min-height:20px;text-align:center}
   }
 }
